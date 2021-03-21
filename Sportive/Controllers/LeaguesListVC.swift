@@ -46,12 +46,12 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = self.tableView.dequeueReusableCell(withIdentifier: "LegueVerticalCell"){
+        if let cell = self.tableView.dequeueReusableCell(withIdentifier: "LegueVerticalCell") as? LeagueVerticalCell{
             
-            cell.imageView?.image = UIImage(named: "premierLeague.jpg")
-            cell.textLabel?.text = "English Premier League"
+            cell.leagueImage?.image = UIImage(named: "premierLeague.jpg")
+            cell.leagueName?.text = "English Premier League"
             
-            cell.detailTextLabel?.text = "Soccer"
+            cell.leagueSport?.text = "Soccer"
             return cell
         }
         
