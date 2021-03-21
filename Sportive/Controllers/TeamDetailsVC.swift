@@ -11,16 +11,13 @@ class TeamDetailsVC: UIViewController {
 
     @IBOutlet weak var teamShirt: UIImageView!
     @IBOutlet weak var teamLogo: UIView!
+    @IBOutlet weak var stadiumImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        teamLogo.layer.cornerRadius = teamLogo.frame.size.width/2
-//        teamLogo.clipsToBounds = true
+        stadiumImage.layer.cornerRadius = 20
+        stadiumImage.clipsToBounds = true
         
-//        teamShirt.layer.cornerRadius = teamShirt.frame.size.width/2
-//        teamShirt.layer.borderWidth = 1
-//        teamShirt.layer.borderColor = UIColor.gray.cgColor
-//        teamShirt.clipsToBounds = true
           }
     
 
