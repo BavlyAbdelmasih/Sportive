@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "arsenalBg.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sports.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

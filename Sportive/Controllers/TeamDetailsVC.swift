@@ -9,21 +9,20 @@ import UIKit
 
 class TeamDetailsVC: UIViewController {
 
+    @IBOutlet weak var teamShirt: UIImageView!
+    @IBOutlet weak var teamLogo: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+//        teamLogo.layer.cornerRadius = teamLogo.frame.size.width/2
+//        teamLogo.clipsToBounds = true
+        
+//        teamShirt.layer.cornerRadius = teamShirt.frame.size.width/2
+//        teamShirt.layer.borderWidth = 1
+//        teamShirt.layer.borderColor = UIColor.gray.cgColor
+//        teamShirt.clipsToBounds = true
+          }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
