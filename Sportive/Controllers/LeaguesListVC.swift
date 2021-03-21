@@ -57,6 +57,13 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
         
         return UITableViewCell()
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailViewController
+       
+        _ = UIStoryboard(name: "Main", bundle: nil)
+      
+           navigationController?.pushViewController( details, animated: true)
+        
+    }
     
 }

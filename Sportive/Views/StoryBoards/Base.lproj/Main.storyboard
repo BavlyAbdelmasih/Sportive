@@ -27,6 +27,41 @@
             </objects>
             <point key="canvasLocation" x="737.68115942028987" y="266.51785714285711"/>
         </scene>
+        <!--League Detail View Controller-->
+        <scene sceneID="VCb-g3-VA9">
+            <objects>
+                <viewController storyboardIdentifier="LeagueDetailViewController" id="bNl-vL-jys" customClass="LeagueDetailViewController" customModule="Sportive" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y5S-2Z-LPs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="premierLeague" translatesAutoresizingMaskIntoConstraints="NO" id="h5o-h9-utM">
+                                <rect key="frame" x="110" y="44" width="194" height="139"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Zn-xK-acr">
+                                <rect key="frame" x="20" y="212" width="374" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Fixture" id="r5r-Et-9vN"/>
+                                    <barButtonItem width="88" style="plain" systemItem="fixedSpace" id="SY0-oy-cuN"/>
+                                    <barButtonItem title="Live" id="Wov-NY-xD9"/>
+                                    <barButtonItem width="164" style="plain" systemItem="fixedSpace" id="OnD-8m-ZvY"/>
+                                    <barButtonItem title="Result" id="6ed-k4-Roz"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dQk-u5-Sbv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="eventsToolBar" destination="3Zn-xK-acr" id="AHS-DM-sgj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="atx-Jw-0fP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1728.985507246377" y="265.84821428571428"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="JMe-XT-KYm">
             <objects>
