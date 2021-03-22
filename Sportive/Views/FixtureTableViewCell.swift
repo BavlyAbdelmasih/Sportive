@@ -1,5 +1,5 @@
 //
-//  LeugueDetailsTableViewCell.swift
+//  FixtureTableViewCell.swift
 //  Sportive
 //
 //  Created by Oufaa on 22/03/2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LeugueDetailsTableViewCell: UITableViewCell {
+class FixtureTableViewCell: UITableViewCell {
 
     @IBOutlet weak var firstTeamImageView: UIImageView!
     @IBOutlet weak var secondTeamImageView: UIImageView!
