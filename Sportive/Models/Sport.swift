@@ -6,3 +6,19 @@
 //
 
 import Foundation
+struct Sport : Decodable {
+    let id : String
+    let title : String
+    let type : String
+    let  backgroundImageUrl : String
+    let description : String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "idSport"
+        case title = "strSport"
+        case type = "strFormat"
+        case  backgroundImageUrl = "strSportThumb"
+        case description = "strSportDescription"
+    }
+    
+}
