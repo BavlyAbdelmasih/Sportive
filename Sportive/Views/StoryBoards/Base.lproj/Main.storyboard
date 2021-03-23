@@ -180,7 +180,7 @@
                                                             <constraint firstAttribute="height" constant="24" id="dWO-FI-Ja2"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                        <color key="textColor" red="0.87236613100000004" green="0.7450979673" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -235,6 +235,9 @@
                                                             </constraints>
                                                         </collectionViewCellContentView>
                                                         <size key="customSize" width="101" height="75"/>
+                                                        <connections>
+                                                            <outlet property="leagueBadgeImage" destination="l9a-Dr-4ae" id="SPM-9x-tqF"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                                 <connections>
@@ -390,6 +393,10 @@
                     <connections>
                         <outlet property="allLeaguesLabel" destination="mWe-Di-ouc" id="eqA-iL-L1h"/>
                         <outlet property="collectionView" destination="ezQ-YI-44A" id="0mJ-3w-aIA"/>
+                        <outlet property="sportDescribtionLabel" destination="zOB-8E-Hh0" id="Oqy-ww-vNE"/>
+                        <outlet property="sportTitleLabel" destination="WhT-Z2-gao" id="jqT-9j-wKX"/>
+                        <outlet property="sportTypeLbel" destination="RcY-cG-Da2" id="yX3-4n-Me1"/>
+                        <outlet property="sportsBackgrundImage" destination="E67-MV-D7J" id="bPL-st-wSg"/>
                         <outlet property="tableView" destination="zuZ-46-noV" id="2Iq-a1-SoG"/>
                     </connections>
                 </viewController>
@@ -688,7 +695,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dotsBG" translatesAutoresizingMaskIntoConstraints="NO" id="wgx-K1-nQW">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dotsBG" translatesAutoresizingMaskIntoConstraints="NO" id="wgx-K1-nQW">
                                 <rect key="frame" x="0.0" y="100" width="165.66666666666666" height="204"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey Brian," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qb1-Vr-KsQ">
@@ -723,28 +730,28 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tGU-GQ-WS7">
                                                     <rect key="frame" x="0.0" y="0.0" width="202" height="181"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="102i" translatesAutoresizingMaskIntoConstraints="NO" id="IfD-yf-WJg">
-                                                            <rect key="frame" x="56" y="8" width="90" height="90"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="102i" translatesAutoresizingMaskIntoConstraints="NO" id="IfD-yf-WJg">
+                                                            <rect key="frame" x="32" y="8" width="138" height="80"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="90" id="YTN-BM-cfN"/>
-                                                                <constraint firstAttribute="width" constant="90" id="f8Z-h8-t47"/>
+                                                                <constraint firstAttribute="width" constant="80" id="6Iz-LT-GZa"/>
+                                                                <constraint firstAttribute="height" constant="80" id="Kcp-3m-srJ"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP6-fY-YuH">
-                                                            <rect key="frame" x="8" y="106" width="186" height="67"/>
-                                                            <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Football" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP6-fY-YuH">
+                                                            <rect key="frame" x="8" y="138" width="186" height="27"/>
+                                                            <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <color key="highlightedColor" red="0.017267544589999999" green="0.017726590980000002" blue="0.18652849739999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="XP6-fY-YuH" secondAttribute="trailing" constant="8" id="ALQ-zF-5Ku"/>
-                                                        <constraint firstAttribute="bottom" secondItem="XP6-fY-YuH" secondAttribute="bottom" constant="8" id="BJF-I9-aeN"/>
-                                                        <constraint firstItem="IfD-yf-WJg" firstAttribute="centerX" secondItem="tGU-GQ-WS7" secondAttribute="centerX" id="Cnr-nw-9xe"/>
-                                                        <constraint firstItem="XP6-fY-YuH" firstAttribute="top" secondItem="IfD-yf-WJg" secondAttribute="bottom" constant="8" symbolic="YES" id="J7J-ed-EF5"/>
-                                                        <constraint firstItem="IfD-yf-WJg" firstAttribute="top" secondItem="tGU-GQ-WS7" secondAttribute="top" constant="8" id="K7n-TE-hme"/>
-                                                        <constraint firstItem="XP6-fY-YuH" firstAttribute="leading" secondItem="tGU-GQ-WS7" secondAttribute="leading" constant="8" id="VSB-t6-7rE"/>
+                                                        <constraint firstAttribute="bottom" secondItem="XP6-fY-YuH" secondAttribute="bottom" constant="16" id="9Ez-yH-Raz"/>
+                                                        <constraint firstItem="IfD-yf-WJg" firstAttribute="top" secondItem="tGU-GQ-WS7" secondAttribute="top" constant="8" id="NRd-r2-qL7"/>
+                                                        <constraint firstAttribute="trailing" secondItem="IfD-yf-WJg" secondAttribute="trailing" constant="32" id="fF2-4D-TnD"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XP6-fY-YuH" secondAttribute="trailing" constant="8" id="lbN-3C-2gp"/>
+                                                        <constraint firstItem="XP6-fY-YuH" firstAttribute="leading" secondItem="tGU-GQ-WS7" secondAttribute="leading" constant="8" id="xNP-na-qWD"/>
+                                                        <constraint firstItem="IfD-yf-WJg" firstAttribute="leading" secondItem="tGU-GQ-WS7" secondAttribute="leading" constant="32" id="zvV-xi-Glh"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -763,6 +770,7 @@
                                         <connections>
                                             <outlet property="sportCellViewBg" destination="tGU-GQ-WS7" id="ZAF-C1-MYo"/>
                                             <outlet property="sportIcon" destination="IfD-yf-WJg" id="bPe-oc-sSy"/>
+                                            <outlet property="sportTitleLabel" destination="XP6-fY-YuH" id="NAO-gd-rxx"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -794,7 +802,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EEW-W9-8oR"/>
                     <connections>
-                        <outlet property="collectionView" destination="qq6-yk-jNZ" id="nVa-51-iQg"/>
+                        <outlet property="collectionView" destination="qq6-yk-jNZ" id="3hg-5x-rib"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

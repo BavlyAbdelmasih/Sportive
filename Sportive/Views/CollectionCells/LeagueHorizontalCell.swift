@@ -8,5 +8,7 @@
 import UIKit
 
 class LeagueHorizontalCell: UICollectionViewCell {
+    @IBOutlet weak var leagueBadgeImage: UIImageView!
+    
     
 }

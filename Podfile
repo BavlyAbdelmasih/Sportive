@@ -5,6 +5,9 @@ target 'Sportive' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 pod 'Alamofire'
+pod 'JGProgressHUD'
+pod 'SDWebImage'
+
 
   # Pods for Sportive
 
