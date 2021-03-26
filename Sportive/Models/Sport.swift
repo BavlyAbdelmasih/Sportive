@@ -22,3 +22,12 @@ struct Sport : Decodable {
     }
     
 }
+
+
+struct Sports: Decodable {
+  let all: [Sport]
+  
+  enum CodingKeys: String, CodingKey {
+    case all = "sports"
+  }
+}

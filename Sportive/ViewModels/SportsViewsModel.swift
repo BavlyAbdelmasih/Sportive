@@ -14,7 +14,12 @@ protocol SportsListViewProtcol {
     
 }
 
-class SportsViewsPresenter : SportsListViewProtcol {
+class SportsViewsModel : SportsListViewProtcol {
+    func leagueViewModelForSport(sport: Sport) -> LeaguesViewsModel {
+        return LeaguesViewsModel(sport: sport)
+    }
+    
+
     var getSports: ((SportsListViewProtcol) -> (Void))?
 
     var sports : Sports?{
@@ -23,11 +28,10 @@ class SportsViewsPresenter : SportsListViewProtcol {
         }
     }
     
-    
     private let apiClient = ApiClient()
     func getApiData(isLoadingCompletion : @escaping (Bool)->Void){
         isLoadingCompletion(false)
-        apiClient.getData(urlStr: "https://www.thesportsdb.com/api/v1/json/1/all_sports.php" , of: Sports.self) { result in
+        apiClient.getData(endPoint: "all_sports.php" , of: Sports.self) { result in
             switch(result){
             case(.success(let data)):
                 self.sports = data as? Sports

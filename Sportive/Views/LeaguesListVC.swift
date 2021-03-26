@@ -18,34 +18,34 @@ class LeaguesListVC: UIViewController {
     @IBOutlet weak var sportTypeLbel: UILabel!
     @IBOutlet weak var sportDescribtionLabel: UILabel!
     
-    var sportItem : Sport?
-    var presenter = LeaguesViewsPresenter()
+      var viewModel : LeaguesViewsModel?
     var items : Leagues?
     var spinner = JGProgressHUD(style: .light)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sportTitleLabel.text = sportItem?.title
-        guard let imageBackground = sportItem?.backgroundImageUrl  else {
-            return
-        }
-        sportTypeLbel.text = sportItem?.type
+        sportTitleLabel.text = viewModel?.sport.title
+      
+        
+        guard let imageBackground = viewModel?.sport.backgroundImageUrl else { return  }
+        sportTypeLbel.text = viewModel?.sport.type
         sportsBackgrundImage.sd_setImage(with: URL(string: imageBackground), placeholderImage: UIImage(named: "placeholder.png"))
-        sportDescribtionLabel.text = sportItem?.description
+        sportDescribtionLabel.text = viewModel?.sport.description
         
         
         
         
         //get League Data from Server
-        presenter.getApiData(sportTitle: sportItem!.title, isLoadingCompletion: { isFinished in
+        viewModel?.getApiData(isLoadingCompletion: { isFinished in
             if(!isFinished){
                 self.spinner.show(in: self.collectionView ,animated: true)
-            }else{
-                self.spinner.dismiss(animated: true)
             }
         })
-        presenter.getLeagues = {viewModel in
+        viewModel?.getLeagues = {viewModel in
             self.items = viewModel.leagues!
+            self.spinner.dismiss(animated: true)
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.collectionView.reloadData()
@@ -60,19 +60,33 @@ class LeaguesListVC: UIViewController {
 
 extension LeaguesListVC : UICollectionViewDelegate , UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let topLeagues = items?.all[0...10]
-        return topLeagues?.count ?? 0
+        
+        return items?.all.count ?? 0
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LeagueHorizontalCell.self), for: indexPath) as? LeagueHorizontalCell {
-            let item = items?.all[indexPath.row]
-            cell.leagueBadgeImage.sd_setImage(with: URL(string: item!.badge), placeholderImage: UIImage(named: "placeholder.png"))
+        if let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LeagueHorizontalCell.self), for: indexPath) as? LeagueHorizontalCell , let item = items?.all[indexPath.row] {
+            
+            cell.leagueBadgeImage.sd_setImage(with: URL(string: item.badge ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 3
+            cell.leagueBadgeImage.layer.borderWidth = 2
+            cell.leagueBadgeImage.layer.borderColor = UIColor.lightGray.cgColor
             return cell
         }
         
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
+        
+        _ = UIStoryboard(name: "Main", bundle: nil)
+        
+        details.leagueItem = items?.all[indexPath.row]
+        
+        navigationController?.pushViewController( details, animated: true)
+        
     }
     
     
@@ -86,13 +100,25 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = self.tableView.dequeueReusableCell(withIdentifier: "LegueVerticalCell") as? LeagueVerticalCell{
-            let item = items?.all[indexPath.row]
+        if let cell = self.tableView.dequeueReusableCell(withIdentifier: "LegueVerticalCell") as? LeagueVerticalCell ,  let item = items?.all[indexPath.row] {
             
-            cell.leagueImage?.sd_setImage(with: URL(string: item!.badge), placeholderImage: UIImage(named: "placeholder.png"))
-            cell.leagueName?.text = item?.title
+            cell.leagueImage?.sd_setImage(with: URL(string: item.badge ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.leagueName?.text = item.title
             
-            cell.leagueSport?.text = item?.country
+            cell.leagueSport?.text = item.country
+            cell.youtubeImageClicked = {
+                guard let youtubeUrlStr = item.leagueYoutube  else {
+                    return
+                }
+                if let url = URL(string: "https://\(youtubeUrlStr)") {
+                    UIApplication.shared.open(url)
+                }
+                print(item.leagueYoutube)
+                
+            }
+            cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.width / 2
+            cell.leagueImage.layer.borderWidth = 2
+            cell.leagueImage.layer.borderColor = UIColor.purple.cgColor
             return cell
         }
         
@@ -102,6 +128,8 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
         let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
         
         _ = UIStoryboard(name: "Main", bundle: nil)
+        
+        details.leagueItem = items?.all[indexPath.row]
         
         navigationController?.pushViewController( details, animated: true)
         
