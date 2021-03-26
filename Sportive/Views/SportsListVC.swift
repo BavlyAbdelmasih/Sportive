@@ -13,7 +13,7 @@ class SportsListVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let apiClient  = ApiClient()
-    private let presenter = SportsViewsPresenter()
+    private let presenter = SportsViewsModel()
     private let spinner = JGProgressHUD(style: .light)
     private var items : Sports?
     override func viewDidLoad() {
@@ -64,7 +64,9 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc  = (self.storyboard?.instantiateViewController(identifier: String(describing: LeaguesListVC.self)))! as LeaguesListVC
-        vc.sportItem = items?.all[indexPath.row]
+        
+        let leagueVM = self.presenter.leagueViewModelForSport(sport: (items?.all[indexPath.row])!)
+        vc.viewModel = leagueVM
         
         self.navigationController?.pushViewController(vc, animated: true)
     }

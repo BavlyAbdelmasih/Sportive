@@ -12,6 +12,8 @@ class LeagueVerticalCell: UITableViewCell {
     @IBOutlet weak var leagueImage: UIImageView!
     @IBOutlet weak var leagueSport: UILabel!
     @IBOutlet weak var leagueName: UILabel!
+    
+    var youtubeImageClicked : (()->Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,5 +24,8 @@ class LeagueVerticalCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func clickYoutube(_ sender: Any) {
+        self.youtubeImageClicked!()
+    }
+    
 }
