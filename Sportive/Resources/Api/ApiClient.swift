@@ -10,13 +10,12 @@ import Alamofire
 
 class ApiClient {
     
+    public static let instance = ApiClient()
+    private init() {}
+    
     private var baseUrl = "https://www.thesportsdb.com/api/v1/json/1/"
     
-    enum DataError : Error{
-        
-    }
-    
-    func getData <T : Decodable>(endPoint : String , of : T.Type , completion : @escaping (Result<Any , Error>)-> Void) {
+    public func getData <T : Decodable>(endPoint : String , of : T.Type , completion : @escaping (Result<Any , Error>)-> Void) {
         AF.request(baseUrl + endPoint)
           .validate()
           .responseDecodable(of: T.self) { (response) in

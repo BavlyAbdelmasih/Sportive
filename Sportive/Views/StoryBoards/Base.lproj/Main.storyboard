@@ -127,59 +127,63 @@
                                     <constraint firstAttribute="width" secondItem="0e1-En-Sdk" secondAttribute="height" multiplier="194:139" id="rLg-a7-CvL"/>
                                 </constraints>
                             </imageView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oAe-WM-hBC">
-                                <rect key="frame" x="16" y="243" width="382" height="32"/>
-                                <color key="backgroundColor" red="0.87236613100000004" green="0.7450979673" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <segments>
-                                    <segment title="Live"/>
-                                    <segment title="Results"/>
-                                    <segment title="Future"/>
-                                </segments>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="R2z-BI-5Re">
+                                <rect key="frame" x="0.0" y="259" width="414" height="93"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="93" id="Wcr-cr-ooj"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LN3-pR-pOh">
+                                    <size key="itemSize" width="101" height="75"/>
+                                    <size key="estimatedItemSize" width="128" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="LeagueHorizontalCell" id="Evt-pV-HGj" customClass="LeagueHorizontalCell" customModule="Sportive" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="9" width="101" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wnX-Xb-zuk">
+                                            <rect key="frame" x="0.0" y="0.0" width="101" height="75"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premierLeague" translatesAutoresizingMaskIntoConstraints="NO" id="G94-qk-AM8">
+                                                    <rect key="frame" x="2" y="2" width="97" height="71"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="82C-eg-T6g"/>
+                                                        <constraint firstAttribute="height" constant="70" id="bfp-bS-9qk"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="G94-qk-AM8" secondAttribute="bottom" constant="2" id="3Gs-Hi-lUT"/>
+                                                <constraint firstItem="G94-qk-AM8" firstAttribute="leading" secondItem="wnX-Xb-zuk" secondAttribute="leading" constant="2" id="Gd0-iv-deL"/>
+                                                <constraint firstAttribute="trailing" secondItem="G94-qk-AM8" secondAttribute="trailing" constant="2" id="adm-aJ-U7a"/>
+                                                <constraint firstItem="G94-qk-AM8" firstAttribute="top" secondItem="wnX-Xb-zuk" secondAttribute="top" constant="2" id="pkH-KB-IPv"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="101" height="75"/>
+                                        <connections>
+                                            <outlet property="leagueBadgeImage" destination="G94-qk-AM8" id="ui6-1K-8yn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
-                                    <action selector="switchViews:" destination="bNl-vL-jys" eventType="valueChanged" id="pdE-Q1-iQy"/>
+                                    <outlet property="dataSource" destination="bNl-vL-jys" id="NNi-0g-EeZ"/>
+                                    <outlet property="delegate" destination="bNl-vL-jys" id="Dhj-Q8-ONV"/>
                                 </connections>
-                            </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPc-Oe-bgb">
-                                <rect key="frame" x="0.0" y="282" width="414" height="572"/>
-                                <connections>
-                                    <segue destination="5we-g6-Q1t" kind="embed" id="3Lp-zS-e4T"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9C-PU-ZxS">
-                                <rect key="frame" x="0.0" y="282" width="414" height="572"/>
-                                <connections>
-                                    <segue destination="GhL-At-DU4" kind="embed" id="79B-A1-nMy"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avs-2Z-YHa">
-                                <rect key="frame" x="0.0" y="282" width="414" height="614"/>
-                                <connections>
-                                    <segue destination="cEH-tu-SzH" kind="embed" id="Guc-Jx-Kkk"/>
-                                </connections>
-                            </containerView>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qyI-wz-Rio"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="avs-2Z-YHa" firstAttribute="leading" secondItem="47O-8e-hLy" secondAttribute="leading" id="493-zb-p9t"/>
+                            <constraint firstItem="qyI-wz-Rio" firstAttribute="trailing" secondItem="R2z-BI-5Re" secondAttribute="trailing" id="2ka-Kl-Y4R"/>
                             <constraint firstItem="qyI-wz-Rio" firstAttribute="trailing" secondItem="0e1-En-Sdk" secondAttribute="trailing" constant="110" id="602-3P-1Nw"/>
-                            <constraint firstItem="oAe-WM-hBC" firstAttribute="height" secondItem="47O-8e-hLy" secondAttribute="height" multiplier="0.0345982" id="79x-Vj-8FK"/>
-                            <constraint firstAttribute="trailing" secondItem="avs-2Z-YHa" secondAttribute="trailing" id="9Eg-1w-gLW"/>
-                            <constraint firstAttribute="bottom" secondItem="avs-2Z-YHa" secondAttribute="bottom" id="C7i-C6-Kx7"/>
-                            <constraint firstAttribute="trailing" secondItem="sPc-Oe-bgb" secondAttribute="trailing" id="Ii3-vS-MMJ"/>
-                            <constraint firstItem="U9C-PU-ZxS" firstAttribute="top" secondItem="oAe-WM-hBC" secondAttribute="bottom" constant="8" id="KOp-og-gH3"/>
-                            <constraint firstItem="qyI-wz-Rio" firstAttribute="bottom" secondItem="U9C-PU-ZxS" secondAttribute="bottom" constant="8" id="NVg-IR-eHj"/>
-                            <constraint firstItem="oAe-WM-hBC" firstAttribute="leading" secondItem="qyI-wz-Rio" secondAttribute="leading" constant="16" id="Omh-tn-LVl"/>
                             <constraint firstItem="0e1-En-Sdk" firstAttribute="leading" secondItem="qyI-wz-Rio" secondAttribute="leading" constant="110" id="R0z-6X-waD"/>
-                            <constraint firstItem="oAe-WM-hBC" firstAttribute="top" secondItem="0e1-En-Sdk" secondAttribute="bottom" constant="16" id="U9v-R8-OaR"/>
-                            <constraint firstItem="sPc-Oe-bgb" firstAttribute="leading" secondItem="47O-8e-hLy" secondAttribute="leading" id="d5f-9s-PR3"/>
-                            <constraint firstItem="avs-2Z-YHa" firstAttribute="top" secondItem="oAe-WM-hBC" secondAttribute="bottom" constant="8" id="eF7-g9-EXC"/>
-                            <constraint firstAttribute="trailing" secondItem="U9C-PU-ZxS" secondAttribute="trailing" id="my7-S4-u1m"/>
-                            <constraint firstItem="sPc-Oe-bgb" firstAttribute="top" secondItem="oAe-WM-hBC" secondAttribute="bottom" constant="8" id="ofM-gn-Qnb"/>
-                            <constraint firstItem="U9C-PU-ZxS" firstAttribute="leading" secondItem="47O-8e-hLy" secondAttribute="leading" id="qfM-fF-wgA"/>
-                            <constraint firstItem="qyI-wz-Rio" firstAttribute="trailing" secondItem="oAe-WM-hBC" secondAttribute="trailing" constant="16" id="tWF-Cn-R4S"/>
-                            <constraint firstItem="qyI-wz-Rio" firstAttribute="bottom" secondItem="sPc-Oe-bgb" secondAttribute="bottom" constant="8" id="w5u-fA-cqQ"/>
+                            <constraint firstItem="R2z-BI-5Re" firstAttribute="top" secondItem="0e1-En-Sdk" secondAttribute="bottom" constant="32" id="cOl-1o-aaH"/>
                             <constraint firstItem="0e1-En-Sdk" firstAttribute="top" secondItem="qyI-wz-Rio" secondAttribute="top" id="xGR-A8-KtK"/>
+                            <constraint firstItem="R2z-BI-5Re" firstAttribute="leading" secondItem="qyI-wz-Rio" secondAttribute="leading" id="xT5-pk-tzE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mgY-T6-US7">
@@ -192,10 +196,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="LiveMatchesView" destination="U9C-PU-ZxS" id="7Bf-ud-hPI"/>
-                        <outlet property="RecentMatchesView" destination="avs-2Z-YHa" id="1xs-eI-yiq"/>
+                        <outlet property="collectionView" destination="R2z-BI-5Re" id="eWA-Tx-m0H"/>
                         <outlet property="favouriteIcon" destination="012-0H-q8N" id="xGw-2m-ZFP"/>
-                        <outlet property="futureMatchesView" destination="sPc-Oe-bgb" id="y6c-iz-9Nd"/>
                         <outlet property="leagueBadgeImage" destination="0e1-En-Sdk" id="qVS-O1-1TH"/>
                     </connections>
                 </viewController>
@@ -208,7 +210,7 @@
             <objects>
                 <viewController id="cEH-tu-SzH" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uPE-Ct-tEp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="614"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="cLz-24-Rmy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -501,7 +503,7 @@
         <!--Team DetailsVC-->
         <scene sceneID="w45-GF-GIt">
             <objects>
-                <viewController id="ZJZ-bP-P66" customClass="TeamDetailsVC" customModule="Sportive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamDetailsVC" id="ZJZ-bP-P66" customClass="TeamDetailsVC" customModule="Sportive" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1UB-9F-W24">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -513,7 +515,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1598.6666666666667"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arsenalBg" translatesAutoresizingMaskIntoConstraints="NO" id="24m-TJ-PwM">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                                <rect key="frame" x="0.0" y="371" width="414" height="896"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rja-OD-6bT">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="1598.6666666666667"/>
@@ -961,11 +963,11 @@
             <objects>
                 <viewController storyboardIdentifier="LiveResults" id="GhL-At-DU4" customClass="LiveResultsVC" customModule="Sportive" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7rd-1L-wnJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="572"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Amz-EH-ftd">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="572"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LiveScoreCell" rowHeight="149" id="c3r-sk-y6r" customClass="LiveScoreCell" customModule="Sportive" customModuleProvider="target">
@@ -1097,11 +1099,11 @@
             <objects>
                 <viewController storyboardIdentifier="FutureMatchesVC" id="5we-g6-Q1t" customClass="FutureMatchesVC" customModule="Sportive" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hMY-E2-z4U">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="572"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cqw-my-fwT">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="572"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LiveScoreCell" rowHeight="149" id="Sfc-RS-EhS" customClass="LiveScoreCell" customModule="Sportive" customModuleProvider="target">

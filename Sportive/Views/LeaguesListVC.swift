@@ -79,13 +79,16 @@ extension LeaguesListVC : UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
+        let detailsVC = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
+                
+       let matchVM = self.viewModel!.MatchesViewModelForLeague(league: (items?.all[indexPath.row])!)
+        let teamVM = self.viewModel!.TeamsViewModelForLeague(league: (items?.all[indexPath.row])!)
+
+        detailsVC.matchViewModel = matchVM
+        detailsVC.teamsViewModel = teamVM
+        self.navigationController?.pushViewController(detailsVC, animated: true)
         
-        _ = UIStoryboard(name: "Main", bundle: nil)
-        
-        details.leagueItem = items?.all[indexPath.row]
-        
-        navigationController?.pushViewController( details, animated: true)
+
         
     }
     
@@ -125,14 +128,16 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
+        let detailsVC = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
+                
+       let matchVM = self.viewModel!.MatchesViewModelForLeague(league: (items?.all[indexPath.row])!)
+        let teamVM = self.viewModel!.TeamsViewModelForLeague(league: (items?.all[indexPath.row])!)
+
+        detailsVC.matchViewModel = matchVM
+        detailsVC.teamsViewModel = teamVM
+        self.navigationController?.pushViewController(detailsVC, animated: true)
         
-        _ = UIStoryboard(name: "Main", bundle: nil)
-        
-        details.leagueItem = items?.all[indexPath.row]
-        
-        navigationController?.pushViewController( details, animated: true)
-        
+   
     }
     
 }

@@ -7,14 +7,16 @@
 
 import UIKit
 import CoreData
+import JGProgressHUD
 
 class LeagueDetailsVC: UIViewController {
     
-    @IBOutlet weak var futureMatchesView: UIView!
-    @IBOutlet weak var LiveMatchesView: UIView!
-    @IBOutlet weak var RecentMatchesView: UIView!
+    
     @IBOutlet weak var leagueBadgeImage: UIImageView!
     @IBOutlet weak var favouriteIcon: UIBarButtonItem!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    private let spinner = JGProgressHUD(style: .light)
     
     var leagueItem : League?
     var isFavourite = false
@@ -23,17 +25,17 @@ class LeagueDetailsVC: UIViewController {
     var favLeague : FavouriteLeague?
     var commitPredicate : NSPredicate?
     var searchedLeagues : [FavouriteLeague]?
+    var matchViewModel : MatchesViewModel!
+    var teamsViewModel : TeamsViewsModel!
+    var teamItems : Teams?
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //show live Matches screen first
-        LiveMatchesView.alpha = 1
-        RecentMatchesView.alpha = 0
-        futureMatchesView.alpha = 0
-        
+        leagueItem = matchViewModel?.league
         
         context = (UIApplication.shared.delegate as? AppDelegate )?.persistentContainer.viewContext
         
@@ -56,23 +58,39 @@ class LeagueDetailsVC: UIViewController {
         //leaegue badge image
         leagueBadgeImage.sd_setImage(with: URL(string: leagueItem!.badge ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
         
+        matchViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
+            
+            if(!isFinishsed){
+                self.spinner.show(in: self.view)
+            }else{
+                self.spinner.dismiss(animated: true)
+            }
+        })
+        
+        matchViewModel?.getData = {vm in
+        }
+        
+        
+        teamsViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
+            
+            if(!isFinishsed){
+                self.spinner.show(in: self.view)
+            }else{
+                self.spinner.dismiss(animated: true)
+            }
+        })
+        
+        teamsViewModel?.getData = {vm in
+            self.teamItems = vm.teams
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                
+            }
+        }
+        
     }
     
-    @IBAction func switchViews(_ sender: Any) {
-        if (sender as AnyObject).selectedSegmentIndex == 0 {
-            LiveMatchesView.alpha = 1
-            RecentMatchesView.alpha = 0
-            futureMatchesView.alpha = 0
-        }else if (sender as AnyObject).selectedSegmentIndex == 1 {
-            LiveMatchesView.alpha = 0
-            RecentMatchesView.alpha = 1
-            futureMatchesView.alpha = 0
-        }else {
-            LiveMatchesView.alpha = 0
-            RecentMatchesView.alpha = 0
-            futureMatchesView.alpha = 1
-        }
-    }
+    
     
     @IBAction func favouriteLeagueAction(_ sender: Any)  {
         if !isFavourite {
@@ -134,3 +152,36 @@ class LeagueDetailsVC: UIViewController {
     
 }
 
+
+
+extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        teamItems?.all.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LeagueHorizontalCell.self), for: indexPath) as? LeagueHorizontalCell , let item = teamItems?.all[indexPath.row] {
+            
+            cell.leagueBadgeImage.sd_setImage(with: URL(string: item.teamLogoImage), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 3
+            cell.leagueBadgeImage.layer.borderWidth = 2
+            cell.leagueBadgeImage.layer.borderColor = UIColor.lightGray.cgColor
+            return cell
+        }
+        
+        return UICollectionViewCell()
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailsVC = (self.storyboard?.instantiateViewController(identifier: String(describing: TeamDetailsVC.self)))as! TeamDetailsVC
+        
+        let vm = self.teamsViewModel.TeamsViewModelForTeam(team: (teamItems?.all[indexPath.row])!)
+        detailsVC.viewMdel = vm
+        self.navigationController?.pushViewController(detailsVC, animated: true)
+        
+        
+        
+    }
+    
+}

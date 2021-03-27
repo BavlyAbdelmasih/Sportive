@@ -27,14 +27,12 @@ class SportsViewsModel : SportsListViewProtcol {
             getSports!(self)
         }
     }
-    
-    private let apiClient = ApiClient()
     func getApiData(isLoadingCompletion : @escaping (Bool)->Void){
         isLoadingCompletion(false)
-        apiClient.getData(endPoint: "all_sports.php" , of: Sports.self) { result in
+        ApiClient.instance.getData(endPoint: "all_sports.php" , of: Sports.self) { [weak self] result in
             switch(result){
             case(.success(let data)):
-                self.sports = data as? Sports
+                self?.sports = data as? Sports
             case(.failure(let error)):
                 print("\(error)")
                 

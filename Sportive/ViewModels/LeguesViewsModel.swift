@@ -31,7 +31,7 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
         didSet{
             if(resultArray?.all.count == leaguesHead?.leagues.count){
                 self.leagues = self.resultArray
-
+                
             }
         }
     }
@@ -43,15 +43,14 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
     }
     
     
-    private let apiClient = ApiClient()
     
     func getAbstractApiData(isLoadingCompletion : @escaping (Bool)->Void){
         isLoadingCompletion(true)
         resultArray = Leagues(all: [])
-        apiClient.getData(endPoint: "all_leagues.php" , of: LeaguesHeader.self) { result in
+        ApiClient.instance.getData(endPoint: "all_leagues.php" , of: LeaguesHeader.self) {[weak self] result in
             switch(result){
             case(.success(let data)):
-                self.leaguesHead = data as? LeaguesHeader
+                self?.leaguesHead = data as? LeaguesHeader
                 
             case(.failure(let error)):
                 print("\(error)")
@@ -64,16 +63,16 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
     
     func getApiData(isLoadingCompletion : @escaping (Bool)->Void){
         
-        self.getAbstractApiData(isLoadingCompletion: {isLoad in
+        self.getAbstractApiData(isLoadingCompletion: {[weak self] isLoad in
             if(!isLoad){
                 isLoadingCompletion(false)
-                self.leaguesHead!.leagues = self.leaguesHead!.leagues.filter({$0.strSport == self.sport.title})
-                for item in self.leaguesHead!.leagues {
-                    self.apiClient.getData(endPoint: "lookupleague.php?id=\(item.idLeague)" , of: Leagues.self) { result in
+                self?.leaguesHead!.leagues = (self?.leaguesHead!.leagues.filter({$0.strSport == self?.sport.title}))!
+                for item in self!.leaguesHead!.leagues {
+                    ApiClient.instance.getData(endPoint: "lookupleague.php?id=\(item.idLeague)" , of: Leagues.self) { [weak self] result in
                         switch(result){
                         case(.success(let data)):
-                            self.resultArray?.all.append((data as! Leagues).all[0])
-
+                            self?.resultArray?.all.append((data as! Leagues).all[0])
+                            
                             print(data)
                         case(.failure(let error)):
                             print("\(error)")
@@ -85,12 +84,19 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
                     
                 }
                 
-//                isLoadingCompletion(true)
-
+                
             }
         })
         
         
+    }
+    
+    func MatchesViewModelForLeague(league: League) -> MatchesViewModel {
+        return MatchesViewModel(league: league)
+    }
+    
+    func TeamsViewModelForLeague(league: League) -> TeamsViewsModel {
+        return TeamsViewsModel(league: league)
     }
     
 }
