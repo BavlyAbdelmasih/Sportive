@@ -1,2 +1,17 @@
-# Sportive
-a sports news app using swift
+# SportsDB
+Simple IOS App to list all sports Leagues , Teams and , minimal information about every one and save your favourite Leagues
+
+## TODO :
+- [X] Create Application Design.
+- [X] Create Model Layer.
+- [X] Create Network Layer Using **Alamofire**.
+- [X] Show All sports and Leagues.
+- [X] Show Legues Details.
+- [X] Show Teams Details.
+- [X] Favourite League Feature using **CoreData**.
+- [ ] Latest and Upcoming Matches for Leagues.
+
+## API : 
+https://thesportsdb.com/api.php
+
+## ScreenShots :
