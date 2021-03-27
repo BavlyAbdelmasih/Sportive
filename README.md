@@ -15,7 +15,7 @@ Simple IOS App to list all sports Leagues , Teams and , minimal information abou
 https://thesportsdb.com/api.php
 
 ## ScreenShots :
-
+![alt text](https://github.com/bavly19/Sportive/blob/bavly/ScreenShots/1.png)
 ## Technologies
 * Alamofire
 * CoreData
