@@ -11,19 +11,35 @@ protocol TeamsListViewProtocol {
     func getDataFromApiServer(isLoadingCompletion :@escaping (Bool)->Void )
     var getData : ((TeamsListViewProtocol)->Void)?{ get set}
     var teams : Teams?{get set}
+    var team : Team?{get set}
+
+    var league : League?{ get set}
+    init(league : League)
+    init(team : Team)
+
 }
 
 class TeamsViewsModel : TeamsListViewProtocol {
+    var team: Team?
+    required init(team: Team) {
+        self.team = team
+    }
+    var league: League?
     
-    private let apiClient = ApiClient()
+    required init(league: League) {
+        self.league = league
+
+    }
+    
+    
     func getDataFromApiServer(isLoadingCompletion: @escaping (Bool) -> Void) {
         isLoadingCompletion(false)
-        apiClient.getData(endPoint: "lookupteam.php?id=133616", of: Teams.self, completion: {result in
+        ApiClient.instance.getData(endPoint: "lookup_all_teams.php?id=\((league?.id)!)", of: Teams.self, completion: {[weak self] result in
             switch(result){
             case(.failure(let error)):
                 print("\(error)")
             case (.success(let data)):
-                self.teams = data as? Teams
+                self?.teams = data as? Teams
             }
             isLoadingCompletion(true)
             
@@ -36,6 +52,10 @@ class TeamsViewsModel : TeamsListViewProtocol {
         didSet{
             getData!(self)
         }
+    }
+    
+    func TeamsViewModelForTeam(team : Team)-> TeamsViewsModel{
+        return TeamsViewsModel(team: team)
     }
     
     

@@ -7,21 +7,21 @@
 
 import Foundation
 struct Team : Decodable {
-    let id : String
-    let teamTitle : String
-    let sportTitle : String
-    let  leagueTitle : String
-    let teamDescription : String
-    let teamBackgroundImage : String
-    let teamLocation : String
+    let id : String?
+    let teamTitle : String?
+    let sportTitle : String?
+    let  leagueTitle : String?
+    let teamDescription : String?
+    let teamBackgroundImage : String?
+    let teamLocation : String?
     let teamLogoImage : String
-    let teamWebsite : String
-    let teamFacebook : String
-    let teamYoutube : String
-    let teamTwitter :String
-    let teamInstagram :String
-    let stadiumTitle : String
-    let stadiumImage : String
+    let teamWebsite : String?
+    let teamFacebook : String?
+    let teamYoutube : String?
+    let teamTwitter :String?
+    let teamInstagram :String?
+    let stadiumTitle : String?
+    let stadiumImage : String?
     
     enum CodingKeys: String, CodingKey {
         case id  = "idTeam"

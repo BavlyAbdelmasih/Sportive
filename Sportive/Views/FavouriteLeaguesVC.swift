@@ -11,6 +11,7 @@ import CoreData
 class FavouriteLeaguesVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var context :NSManagedObjectContext?
+    var viewModel : LeaguesViewsModel?
     
     var favLeaguesArray : [FavouriteLeague]?
     
@@ -49,7 +50,7 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "LegueVerticalCell") as? LeagueVerticalCell ,  let item = favLeaguesArray?[indexPath.row] {
             
-            cell.leagueImage?.sd_setImage(with: URL(string: item.badge!), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.leagueImage.sd_setImage(with: URL(string: item.badge ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
             cell.leagueName?.text = item.title
             
             cell.leagueSport?.text = item.country
@@ -72,6 +73,12 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
         let leagueItem = League(id: favItem.id!, title: favItem.title!, country: favItem.country!, badge: favItem.badge!, leagueYoutube: favItem.leagueYoutube!)
         
         details.leagueItem = leagueItem
+        
+        let matchVM = MatchesViewModel(league: leagueItem)
+         let teamVM = TeamsViewsModel(league: leagueItem)
+
+        details.matchViewModel = matchVM
+        details.teamsViewModel = teamVM
         navigationController?.pushViewController( details, animated: true)
         
     }

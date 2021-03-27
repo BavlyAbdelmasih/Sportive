@@ -27,7 +27,7 @@ class TeamDetailsVC: UIViewController {
     
     
     @IBOutlet weak var stadiumBackgroundImage: UIImageView!
-    let viewMdel = TeamsViewsModel()
+    var viewMdel : TeamsViewsModel?
     let spinner = JGProgressHUD(style: .light)
     
     override func viewDidLoad() {
@@ -36,26 +36,15 @@ class TeamDetailsVC: UIViewController {
         stadiumImage.layer.cornerRadius = 20
         stadiumImage.clipsToBounds = true
         
-        viewMdel.getDataFromApiServer(isLoadingCompletion: {isFinished in
-            if(!isFinished){
-                self.spinner.show(in: self.view)
-                self.view.alpha = 0
-            }else{
-                self.spinner.dismiss()
-                self.view.alpha = 1
 
-            }
-        })
-        viewMdel.getData = {viewModel in
-            let item = viewModel.teams?.all[0]
+        let item = self.viewMdel!.team
             self.teamTitleLabel.text = item?.teamTitle
-            print(item?.teamTitle)
             self.leagueTitleLabel.text = item?.leagueTitle
             self.teamLogoImage.sd_setImage(with: URL(string: item!.teamLogoImage), placeholderImage: UIImage(named: "placeholder.png"))
             self.teamDescriptionLabel.text = item?.teamDescription
-            self.screenBackgroundImage.sd_setImage(with: URL(string: item!.teamBackgroundImage), placeholderImage: UIImage(named: "placeholder.png"))
+            self.screenBackgroundImage.sd_setImage(with: URL(string: item!.teamBackgroundImage ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
             self.teamCountryLabel.text = item?.teamLocation
-            self.stadiumImage.sd_setImage(with: URL(string: item!.stadiumImage), placeholderImage: UIImage(named: "placeholder.png"))
+            self.stadiumImage.sd_setImage(with: URL(string: item!.stadiumImage ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
             self.stadiumTitleLabel.text = item?.stadiumTitle
             
             self.facebookUrl = item?.teamFacebook
@@ -64,7 +53,7 @@ class TeamDetailsVC: UIViewController {
             self.youtubeUrl = item?.teamYoutube
             
             
-        }
+        
         
     }
     
@@ -94,3 +83,4 @@ class TeamDetailsVC: UIViewController {
     }
     
 }
+

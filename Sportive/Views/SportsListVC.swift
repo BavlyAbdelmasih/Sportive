@@ -12,7 +12,6 @@ class SportsListVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private let apiClient  = ApiClient()
     private let presenter = SportsViewsModel()
     private let spinner = JGProgressHUD(style: .light)
     private var items : Sports?
