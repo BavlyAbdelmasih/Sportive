@@ -15,3 +15,9 @@ Simple IOS App to list all sports Leagues , Teams and , minimal information abou
 https://thesportsdb.com/api.php
 
 ## ScreenShots :
+
+## Technologies
+* Alamofire
+* CoreData
+* MVVM
+* Unit Testing
