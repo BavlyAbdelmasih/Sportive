@@ -7,7 +7,7 @@
 
 import Foundation
 struct Team : Decodable {
-    let id : String?
+    let id : String
     let teamTitle : String?
     let sportTitle : String?
     let  leagueTitle : String?
@@ -45,7 +45,7 @@ struct Team : Decodable {
 
 
 struct Teams: Decodable {
-  let all: [Team]
+  var all: [Team]?
   
   enum CodingKeys: String, CodingKey {
     case all = "teams"

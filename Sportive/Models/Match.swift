@@ -14,9 +14,11 @@ struct Match : Decodable{
     let  leagueTitle : String?
     let homeTeamId : String?
     let awayTeamId : String?
+    let homeTeamScore : String?
+    let awayTeamScore : String?
     let stadiumTitle : String?
     let country : String?
-    let result : String?
+    let dateEvent : String?
     
     
     enum CodingKeys: String, CodingKey {
@@ -26,9 +28,11 @@ struct Match : Decodable{
         case  leagueTitle = "strLeague"
         case homeTeamId = "idHomeTeam"
         case awayTeamId = "idAwayTeam"
+        case homeTeamScore = "intHomeScore"
+        case awayTeamScore = "intAwayScore"
         case stadiumTitle = "strVenue"
         case country = "strCountry"
-        case result = "strResult"
+        case dateEvent = "dateEvent"
         
     }
     

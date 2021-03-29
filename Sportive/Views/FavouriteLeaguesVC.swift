@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import FBSDKLoginKit
 
 class FavouriteLeaguesVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -20,6 +21,20 @@ class FavouriteLeaguesVC: UIViewController {
         context = (UIApplication.shared.delegate as? AppDelegate )?.persistentContainer.viewContext
         loadAllData()
         
+        
+    }
+    @IBAction func logout(_ sender: Any) {
+        UserDefaults.standard.setValue(nil, forKey: "user_name")
+        UserDefaults.standard.setValue(nil, forKey: "pictureUrl")
+        
+        let loginManager = LoginManager()
+        loginManager.logOut()
+        let logginScreen = LoginVC()
+ 
+        let nav = UINavigationController(rootViewController: logginScreen)
+        
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: false, completion: nil)
         
     }
     
@@ -75,8 +90,8 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
         details.leagueItem = leagueItem
         
         let matchVM = MatchesViewModel(league: leagueItem)
-         let teamVM = TeamsViewsModel(league: leagueItem)
-
+        let teamVM = TeamsViewsModel(league: leagueItem)
+        
         details.matchViewModel = matchVM
         details.teamsViewModel = teamVM
         navigationController?.pushViewController( details, animated: true)
