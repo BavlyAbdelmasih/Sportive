@@ -78,7 +78,7 @@ class LeagueDetailsVC: UIViewController {
                         self.spinner.dismiss(animated: true)
                         
                         
-                        self.matchViewModel.getTwoTeamsForMatches(teams: self.teamItems!, isLoadingCompletion: {isFinished in
+                        self.matchViewModel.getTwoTeamsForMatches(teams: self.teamItems, isLoadingCompletion: {isFinished in
                             
                             if(isFinished){
                                 latestVC.twoTeams = self.matchViewModel.twoTeams

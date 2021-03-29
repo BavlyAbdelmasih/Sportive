@@ -10,10 +10,10 @@ import Foundation
 protocol MatchesListViewProtocol {
     func getDataFromApiServer(isLoadingCompletion :@escaping (Bool)->Void )
     var getData : ((MatchesListViewProtocol)->Void)?{ get set}
-    func getTwoTeamsForMatches(teams : Teams , isLoadingCompletion :@escaping (Bool)->Void )
+    func getTwoTeamsForMatches(teams : Teams? , isLoadingCompletion :@escaping (Bool)->Void )
     var matches : Matches?{get set}
     var league : League?{ get set}
-    var twoTeams : [[Team]]? { get set }
+    var twoTeams : [[Team]?]? { get set }
     init(league : League)
     
     
@@ -21,7 +21,7 @@ protocol MatchesListViewProtocol {
 }
 
 class MatchesViewModel : MatchesListViewProtocol {
-    var twoTeams: [[Team]]?
+    var twoTeams: [[Team]?]?
     
     var getData: ((MatchesListViewProtocol) -> Void)?
     
@@ -54,7 +54,7 @@ class MatchesViewModel : MatchesListViewProtocol {
         })
     }
     
-    func getTwoTeamsForMatches(teams : Teams , isLoadingCompletion :@escaping (Bool)->Void ){
+    func getTwoTeamsForMatches(teams : Teams? , isLoadingCompletion :@escaping (Bool)->Void ){
         twoTeams = []
         isLoadingCompletion(false)
         
@@ -66,12 +66,23 @@ class MatchesViewModel : MatchesListViewProtocol {
                 return
             }
             
-            guard let homeTeam = teams.all?.filter({$0.id == homeTeamId
+            guard teams?.all?.filter({$0.id == homeTeamId
+            }).count != nil , (teams?.all?.filter({$0.id == homeTeamId
+            }).count)! > 0 else {
+                return
+            }
+            
+            guard let homeTeam = teams?.all?.filter({$0.id == homeTeamId
             })[0] else{
                 return
             }
             
-            guard let awayTeam = teams.all?.filter({$0.id == awayTeamId
+            guard (teams?.all?.filter({$0.id == awayTeamId
+            }).count)! > 0 else {
+                return
+            }
+            
+            guard let awayTeam = teams?.all?.filter({$0.id == awayTeamId
             })[0] else{
                 return
             }
