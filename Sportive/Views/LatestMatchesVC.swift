@@ -12,7 +12,7 @@ class LatestMatchesVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     var viewModel : MatchesViewModel?
-    var twoTeams : [[Team]]?{
+    var twoTeams : [[Team]?]?{
         didSet{
             self.collectionView.reloadData()
 
@@ -42,10 +42,10 @@ extension LatestMatchesVC : UICollectionViewDelegate , UICollectionViewDataSourc
             cell.contentView.layer.borderWidth = 1
             cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
             cell.contentView.layer.cornerRadius = 20
-            cell.homeTeamName.text = twoTeams?[indexPath.row][0].teamTitle
-            cell.awayTeamName.text = twoTeams?[indexPath.row][1].teamTitle
-            cell.homeTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row][0].teamLogoImage ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
-            cell.awayTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row][1].teamLogoImage ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.homeTeamName.text = twoTeams?[indexPath.row]?[0].teamTitle
+            cell.awayTeamName.text = twoTeams?[indexPath.row]?[1].teamTitle
+            cell.homeTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row]?[0].teamLogoImage ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.awayTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row]?[1].teamLogoImage ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
             cell.matchResult.text = "\((matches?.all?[indexPath.row].homeTeamScore) ?? "?") - \((matches?.all?[indexPath.row].awayTeamScore) ?? "?")"
             cell.matchDate.text = matches?.all?[indexPath.row].dateEvent
 
