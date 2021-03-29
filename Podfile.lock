@@ -1,5 +1,15 @@
 PODS:
   - Alamofire (5.4.1)
+  - FBSDKCoreKit (9.0.1):
+    - FBSDKCoreKit/Basics (= 9.0.1)
+    - FBSDKCoreKit/Core (= 9.0.1)
+  - FBSDKCoreKit/Basics (9.0.1)
+  - FBSDKCoreKit/Core (9.0.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (9.0.1):
+    - FBSDKLoginKit/Login (= 9.0.1)
+  - FBSDKLoginKit/Login (9.0.1):
+    - FBSDKCoreKit (~> 9.0.1)
   - JGProgressHUD (2.2)
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
@@ -7,20 +17,25 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - FBSDKLoginKit
   - JGProgressHUD
   - SDWebImage
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - JGProgressHUD
     - SDWebImage
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  FBSDKCoreKit: fada1a6a0076724678993ff05a633848765ff18c
+  FBSDKLoginKit: d5ffe6d808897019ccf16feb6f0a7ab260bc5cd6
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
 
-PODFILE CHECKSUM: d7311cef611043be4efe1e515b6fa789485a40f6
+PODFILE CHECKSUM: 9456fd7cb70b77281f9407e60f5d37e6d7943286
 
 COCOAPODS: 1.10.1

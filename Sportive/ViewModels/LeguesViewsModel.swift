@@ -73,7 +73,7 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
                         case(.success(let data)):
                             self?.resultArray?.all.append((data as! Leagues).all[0])
                             
-                            print(data)
+//                            print(data)
                         case(.failure(let error)):
                             print("\(error)")
                             

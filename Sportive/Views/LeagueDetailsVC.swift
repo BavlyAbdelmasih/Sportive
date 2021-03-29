@@ -14,6 +14,7 @@ class LeagueDetailsVC: UIViewController {
     
     @IBOutlet weak var leagueBadgeImage: UIImageView!
     @IBOutlet weak var favouriteIcon: UIBarButtonItem!
+    @IBOutlet weak var latestMatchesView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView!
     private let spinner = JGProgressHUD(style: .light)
@@ -28,6 +29,7 @@ class LeagueDetailsVC: UIViewController {
     var matchViewModel : MatchesViewModel!
     var teamsViewModel : TeamsViewsModel!
     var teamItems : Teams?
+    
     
     
     
@@ -58,34 +60,49 @@ class LeagueDetailsVC: UIViewController {
         //leaegue badge image
         leagueBadgeImage.sd_setImage(with: URL(string: leagueItem!.badge ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
         
+        guard let latestVC = self.children.first as? LatestMatchesVC else  {
+            fatalError("Check storyboard for missing LocationTableViewController")
+        }
+        
         matchViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
             
             if(!isFinishsed){
                 self.spinner.show(in: self.view)
             }else{
                 self.spinner.dismiss(animated: true)
+                self.teamsViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
+                    
+                    if(!isFinishsed){
+                        self.spinner.show(in: self.view)
+                    }else{
+                        self.spinner.dismiss(animated: true)
+                        
+                        
+                        self.matchViewModel.getTwoTeamsForMatches(teams: self.teamItems!, isLoadingCompletion: {isFinished in
+                            
+                            if(isFinished){
+                                latestVC.twoTeams = self.matchViewModel.twoTeams
+                            }
+                        })
+                    }
+                })
             }
         })
         
         matchViewModel?.getData = {vm in
+            
+            latestVC.matches = vm.matches
         }
         
         
-        teamsViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
-            
-            if(!isFinishsed){
-                self.spinner.show(in: self.view)
-            }else{
-                self.spinner.dismiss(animated: true)
-            }
-        })
+        
         
         teamsViewModel?.getData = {vm in
             self.teamItems = vm.teams
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                
             }
+            
         }
         
     }
@@ -100,6 +117,8 @@ class LeagueDetailsVC: UIViewController {
             favLeague?.badge = leagueItem?.badge
             favLeague!.leagueYoutube = leagueItem?.leagueYoutube
             favLeague!.id = leagueItem?.id
+            
+            searchedLeagues?.append(favLeague!)
             do{
                 try saveData()
                 favouriteIcon.image = UIImage(systemName: "heart.fill")
@@ -110,6 +129,7 @@ class LeagueDetailsVC: UIViewController {
         }else{
             favLeaguesArray = favLeaguesArray?.filter { $0.id != leagueItem?.id}
             context?.delete(searchedLeagues![0])
+
             do{
                 try saveData()
                 
@@ -156,16 +176,19 @@ class LeagueDetailsVC: UIViewController {
 
 extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        teamItems?.all.count ?? 0
+        
+        teamItems?.all?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LeagueHorizontalCell.self), for: indexPath) as? LeagueHorizontalCell , let item = teamItems?.all[indexPath.row] {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamsInLeagueCell.self), for: indexPath) as? TeamsInLeagueCell , let item = teamItems?.all?[indexPath.row] {
             
             cell.leagueBadgeImage.sd_setImage(with: URL(string: item.teamLogoImage), placeholderImage: UIImage(named: "placeholder.png"))
             cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 3
             cell.leagueBadgeImage.layer.borderWidth = 2
             cell.leagueBadgeImage.layer.borderColor = UIColor.lightGray.cgColor
+            
+            
             return cell
         }
         
@@ -176,7 +199,7 @@ extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsVC = (self.storyboard?.instantiateViewController(identifier: String(describing: TeamDetailsVC.self)))as! TeamDetailsVC
         
-        let vm = self.teamsViewModel.TeamsViewModelForTeam(team: (teamItems?.all[indexPath.row])!)
+        let vm = self.teamsViewModel.TeamsViewModelForTeam(team: (teamItems?.all?[indexPath.row])!)
         detailsVC.viewMdel = vm
         self.navigationController?.pushViewController(detailsVC, animated: true)
         
@@ -185,3 +208,5 @@ extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSourc
     }
     
 }
+
+

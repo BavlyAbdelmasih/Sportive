@@ -12,11 +12,19 @@ class SportsListVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var profileName: UILabel!
+    @IBOutlet weak var profilePic: UIImageView!
     private let presenter = SportsViewsModel()
     private let spinner = JGProgressHUD(style: .light)
     private var items : Sports?
+    var userName : String?
+    var profilePicUrl : String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        profilePic.layer.cornerRadius = profilePic.width / 2
+        
+       
+        
         presenter.getApiData(isLoadingCompletion: { isFinished in
             if(!isFinished){
                 self.spinner.show(in: self.collectionView ,animated: true)
@@ -31,6 +39,20 @@ class SportsListVC: UIViewController {
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        userName = UserDefaults.standard.value(forKey: "user_name") as? String
+        profilePicUrl = UserDefaults.standard.value(forKey: "pictureUrl") as? String
+        
+        if userName == nil {
+            let logginScreen = LoginVC()
+            let nav = UINavigationController(rootViewController: logginScreen)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: false, completion: nil)
+        }
+        profileName.text = "Hey \(userName!)"
+        profilePic.sd_setImage(with: URL(string: profilePicUrl ?? "https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png"), placeholderImage: UIImage(named: "placeholder.png"))
+    }
 }
 
 extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
@@ -44,7 +66,7 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
             let title = items?.all[indexPath.row].title
             let id =  items?.all[indexPath.row].id
             let imagePath = "\(id!)i.png"
-            self.drawCardBorder(view: cell.sportCellViewBg)
+            self.drawCardBorder(view: cell.contentView)
             cell.sportIcon.image = UIImage(named: imagePath)
             cell.sportTitleLabel.text = title
             
@@ -62,6 +84,7 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         let vc  = (self.storyboard?.instantiateViewController(identifier: String(describing: LeaguesListVC.self)))! as LeaguesListVC
         
         let leagueVM = self.presenter.leagueViewModelForSport(sport: (items?.all[indexPath.row])!)
@@ -78,8 +101,8 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
         view.layer.masksToBounds = true
         
         view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOffset = CGSize(width: 5, height: 5)
-        view.layer.shadowRadius = 2
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowRadius = 1
         view.layer.shadowOpacity = 0.5
         view.layer.masksToBounds = false
     }

@@ -66,7 +66,7 @@ extension LeaguesListVC : UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LeagueHorizontalCell.self), for: indexPath) as? LeagueHorizontalCell , let item = items?.all[indexPath.row] {
+        if let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamsInLeagueCell.self), for: indexPath) as? TeamsInLeagueCell , let item = items?.all[indexPath.row] {
             
             cell.leagueBadgeImage.sd_setImage(with: URL(string: item.badge ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
             cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 3
@@ -122,10 +122,16 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
             cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.width / 2
             cell.leagueImage.layer.borderWidth = 2
             cell.leagueImage.layer.borderColor = UIColor.purple.cgColor
+            
             return cell
         }
         
         return UITableViewCell()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsVC = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC

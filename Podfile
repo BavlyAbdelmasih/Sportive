@@ -7,6 +7,7 @@ target 'Sportive' do
 pod 'Alamofire'
 pod 'JGProgressHUD'
 pod 'SDWebImage'
+pod 'FBSDKLoginKit'
 
 
   # Pods for Sportive
