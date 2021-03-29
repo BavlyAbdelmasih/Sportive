@@ -9,15 +9,20 @@ Simple IOS App to list all sports Leagues , Teams and , minimal information abou
 - [X] Show Legues Details.
 - [X] Show Teams Details.
 - [X] Favourite League Feature using **CoreData**.
-- [ ] Latest and Upcoming Matches for Leagues.
+- [X] FaceBook Login.
+- [X] Latest and Upcoming Matches for Leagues.
+- [ ] Handling Offline Mode Using **Reachability**.
 
 ## API : 
 https://thesportsdb.com/api.php
 
 ## ScreenShots :
 ![alt text](https://github.com/bavly19/Sportive/blob/bavly/ScreenShots/1.png)
+
 ## Technologies
 * Alamofire
 * CoreData
 * MVVM
 * Unit Testing
+* FaceBook Login
+* Rechability
