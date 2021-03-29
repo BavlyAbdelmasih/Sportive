@@ -1,4 +1,4 @@
-# SportsDB
+# Sportive
 Simple IOS App to list all sports Leagues , Teams and , minimal information about every one and save your favourite Leagues
 
 ## TODO :
