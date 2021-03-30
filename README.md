@@ -11,7 +11,7 @@ Simple IOS App to list all sports Leagues , Teams and , minimal information abou
 - [X] Favourite League Feature using **CoreData**.
 - [X] FaceBook Login.
 - [X] Latest and Upcoming Matches for Leagues.
-- [ ] Handling Offline Mode Using **Reachability**.
+- [X] Handling Offline Mode Using **Reachability**.
 
 ## API : 
 https://thesportsdb.com/api.php
