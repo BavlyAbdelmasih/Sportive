@@ -11,6 +11,7 @@ PODS:
   - FBSDKLoginKit/Login (9.0.1):
     - FBSDKCoreKit (~> 9.0.1)
   - JGProgressHUD (2.2)
+  - ReachabilitySwift (5.0.0)
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - Alamofire
   - FBSDKLoginKit
   - JGProgressHUD
+  - ReachabilitySwift
   - SDWebImage
 
 SPEC REPOS:
@@ -27,6 +29,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - JGProgressHUD
+    - ReachabilitySwift
     - SDWebImage
 
 SPEC CHECKSUMS:
@@ -34,8 +37,9 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: fada1a6a0076724678993ff05a633848765ff18c
   FBSDKLoginKit: d5ffe6d808897019ccf16feb6f0a7ab260bc5cd6
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
 
-PODFILE CHECKSUM: 9456fd7cb70b77281f9407e60f5d37e6d7943286
+PODFILE CHECKSUM: 64e0ef2544d9e95962bf943530205bfeefbb0e4c
 
 COCOAPODS: 1.10.1

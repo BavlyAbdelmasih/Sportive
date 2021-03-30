@@ -44,10 +44,28 @@ extension LatestMatchesVC : UICollectionViewDelegate , UICollectionViewDataSourc
             cell.contentView.layer.cornerRadius = 20
             cell.homeTeamName.text = twoTeams?[indexPath.row]?[0].teamTitle
             cell.awayTeamName.text = twoTeams?[indexPath.row]?[1].teamTitle
-            cell.homeTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row]?[0].teamLogoImage ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
-            cell.awayTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row]?[1].teamLogoImage ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.homeTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row]?[0].teamLogoImage ?? "" ), for: .normal, placeholderImage: UIImage(named: "placeholder.png"))
+            cell.awayTeamLogo.sd_setImage(with: URL(string: twoTeams?[indexPath.row]?[1].teamLogoImage ?? "" ), for: .normal, placeholderImage: UIImage(named: "placeholder.png"))
             cell.matchResult.text = "\((matches?.all?[indexPath.row].homeTeamScore) ?? "?") - \((matches?.all?[indexPath.row].awayTeamScore) ?? "?")"
             cell.matchDate.text = matches?.all?[indexPath.row].dateEvent
+            
+            cell.didSelectHomeTeam = {
+                print("a7a7a7a7")
+                let detailsVC = (self.storyboard?.instantiateViewController(identifier: String(describing: TeamDetailsVC.self)))as! TeamDetailsVC
+                
+                let vm = TeamsViewsModel(team: (self.twoTeams?[indexPath.row]?[0])!)
+                detailsVC.viewMdel = vm
+                self.present(detailsVC, animated: true, completion: nil)
+            }
+            
+            cell.didSelectAwayTeam = {
+                
+                let detailsVC = (self.storyboard?.instantiateViewController(identifier: String(describing: TeamDetailsVC.self)))as! TeamDetailsVC
+                
+                let vm = TeamsViewsModel(team: (self.twoTeams?[indexPath.row]?[1])!)
+                detailsVC.viewMdel = vm
+                self.present(detailsVC, animated: true, completion: nil)
+            }
 
             
 

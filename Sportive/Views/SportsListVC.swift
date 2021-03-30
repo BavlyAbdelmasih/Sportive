@@ -8,31 +8,62 @@
 import UIKit
 import JGProgressHUD
 
-class SportsListVC: UIViewController {
+class SportsListVC: UIViewController ,ReachabilityObserverDelegate {
+    
+    
+    
+    deinit{
+        removeReachabilityObserver()
+    }
+    
+    func reachabilityChanged(_ isReachable: Bool) {
+        if !isReachable {
+            guard let unReachVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: UnReachbaleVC.self)) else{return}
+            let nav = UINavigationController(rootViewController: unReachVC)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: false, completion: nil)
+        }else{
+            viewModel.getApiData(isLoadingCompletion: { isFinished in
+                if(!isFinished){
+                    self.spinner.show(in: self.collectionView ,animated: true)
+                }else{
+                    self.spinner.dismiss(animated: true)
+                }
+            })
+            viewModel.getSports = {viewModel in
+                self.items = viewModel.sports
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profilePic: UIImageView!
-    private let presenter = SportsViewsModel()
+    
+    private let viewModel = SportsViewsModel()
     private let spinner = JGProgressHUD(style: .light)
     private var items : Sports?
+    
     var userName : String?
     var profilePicUrl : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         profilePic.layer.cornerRadius = profilePic.width / 2
         
-       
-        
-        presenter.getApiData(isLoadingCompletion: { isFinished in
+        viewModel.getApiData(isLoadingCompletion: { isFinished in
             if(!isFinished){
                 self.spinner.show(in: self.collectionView ,animated: true)
             }else{
                 self.spinner.dismiss(animated: true)
             }
         })
-        presenter.getSports = {viewModel in
+        viewModel.getSports = {viewModel in
             self.items = viewModel.sports
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -41,14 +72,18 @@ class SportsListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        try? addReachabilityObserver()
+        
         userName = UserDefaults.standard.value(forKey: "user_name") as? String
         profilePicUrl = UserDefaults.standard.value(forKey: "pictureUrl") as? String
         
-        if userName == nil {
+        guard  userName != nil else{
             let logginScreen = LoginVC()
             let nav = UINavigationController(rootViewController: logginScreen)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: false, completion: nil)
+            return
         }
         profileName.text = "Hey \(userName!)"
         profilePic.sd_setImage(with: URL(string: profilePicUrl ?? "https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png"), placeholderImage: UIImage(named: "placeholder.png"))
@@ -79,15 +114,14 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (view.frame.size.width - 20 * 3) / 2
-        return CGSize(width: size, height: size - 10)
+        return CGSize(width: size, height: size )
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let vc  = (self.storyboard?.instantiateViewController(identifier: String(describing: LeaguesListVC.self)))! as LeaguesListVC
-        
-        let leagueVM = self.presenter.leagueViewModelForSport(sport: (items?.all[indexPath.row])!)
+        let leagueVM = self.viewModel.leagueViewModelForSport(sport: (items?.all[indexPath.row])!)
         vc.viewModel = leagueVM
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -99,11 +133,5 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.systemGray.cgColor
         view.layer.masksToBounds = true
-        
-        view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.5
-        view.layer.masksToBounds = false
     }
 }

@@ -8,11 +8,24 @@
 import UIKit
 
 class LatestMatchesCell: UICollectionViewCell {
-    @IBOutlet weak var awayTeamLogo: UIImageView!
     @IBOutlet weak var homeTeamName: UILabel!
     @IBOutlet weak var matchDate: UILabel!
     @IBOutlet weak var awayTeamName: UILabel!
-    @IBOutlet weak var homeTeamLogo: UIImageView!
+    @IBOutlet weak var homeTeamLogo: UIButton!
+    @IBOutlet weak var awayTeamLogo: UIButton!
     
     @IBOutlet weak var matchResult: UILabel!
+    
+    var didSelectAwayTeam : (() -> Void)?
+    var didSelectHomeTeam : (() -> Void)?
+    
+    
+    @IBAction func homeTeamClickListener(_ sender: Any) {
+        self.didSelectHomeTeam!()
+    }
+    @IBAction func awayTeamSelectListner(_ sender: Any) {
+        self.didSelectAwayTeam!()
+    }
+    
+    
 }
