@@ -13,17 +13,22 @@ protocol LeaguesListViewProtcol {
     var leagues : Leagues? { get set }
     var leaguesHead : LeaguesHeader? {get set}
     var sport : Sport{ get set}
-    init(sport:Sport)
+    var apiClient:ApiClient { get set }
+    init(sport: Sport , apiClient: ApiClient)
     
 }
 
 class LeaguesViewsModel : LeaguesListViewProtcol {
+    var apiClient: ApiClient
+    
     var sport: Sport
     
     
-    required init(sport: Sport) {
+    required init(sport: Sport ,  apiClient: ApiClient = ApiClient()) {
+        self.apiClient = apiClient
         self.sport = sport
     }
+
     
     var leaguesHead: LeaguesHeader?
     var getLeagues: ((LeaguesListViewProtcol) -> (Void))?
@@ -47,7 +52,7 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
     func getAbstractApiData(isLoadingCompletion : @escaping (Bool)->Void){
         isLoadingCompletion(true)
         resultArray = Leagues(all: [])
-        ApiClient.instance.getData(endPoint: "all_leagues.php" , of: LeaguesHeader.self) {[weak self] result in
+        apiClient.getData(endPoint: "all_leagues.php" , of: LeaguesHeader.self) {[weak self] result in
             switch(result){
             case(.success(let data)):
                 self?.leaguesHead = data as? LeaguesHeader
@@ -68,12 +73,12 @@ class LeaguesViewsModel : LeaguesListViewProtcol {
                 isLoadingCompletion(false)
                 self?.leaguesHead!.leagues = (self?.leaguesHead!.leagues.filter({$0.strSport == self?.sport.title}))!
                 for item in self!.leaguesHead!.leagues {
-                    ApiClient.instance.getData(endPoint: "lookupleague.php?id=\(item.idLeague)" , of: Leagues.self) { [weak self] result in
+                    self?.apiClient.getData(endPoint: "lookupleague.php?id=\(item.idLeague)" , of: Leagues.self) { [weak self] result in
                         switch(result){
                         case(.success(let data)):
                             self?.resultArray?.all.append((data as! Leagues).all[0])
                             
-//                            print(data)
+                        //                            print(data)
                         case(.failure(let error)):
                             print("\(error)")
                             

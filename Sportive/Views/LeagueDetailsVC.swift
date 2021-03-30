@@ -10,8 +10,7 @@ import CoreData
 import JGProgressHUD
 
 class LeagueDetailsVC: UIViewController {
-    
-    
+  
     @IBOutlet weak var leagueBadgeImage: UIImageView!
     @IBOutlet weak var favouriteIcon: UIBarButtonItem!
     @IBOutlet weak var latestMatchesView: UIView!
@@ -29,10 +28,7 @@ class LeagueDetailsVC: UIViewController {
     var matchViewModel : MatchesViewModel!
     var teamsViewModel : TeamsViewsModel!
     var teamItems : Teams?
-    
-    
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +60,11 @@ class LeagueDetailsVC: UIViewController {
             fatalError("Check storyboard for missing LocationTableViewController")
         }
         
+        guard let UpcomingVC = self.children.last as? UpcomingMatchesVC else  {
+            fatalError("Check storyboard for missing LocationTableViewController")
+        }
+
+        
         matchViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
             
             if(!isFinishsed){
@@ -82,6 +83,7 @@ class LeagueDetailsVC: UIViewController {
                             
                             if(isFinished){
                                 latestVC.twoTeams = self.matchViewModel.twoTeams
+                                UpcomingVC.twoTeams = self.matchViewModel.twoTeams
                             }
                         })
                     }
@@ -92,6 +94,8 @@ class LeagueDetailsVC: UIViewController {
         matchViewModel?.getData = {vm in
             
             latestVC.matches = vm.matches
+            UpcomingVC.matches = vm.matches
+
         }
         
         

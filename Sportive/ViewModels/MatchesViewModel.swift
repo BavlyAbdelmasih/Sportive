@@ -14,13 +14,16 @@ protocol MatchesListViewProtocol {
     var matches : Matches?{get set}
     var league : League?{ get set}
     var twoTeams : [[Team]?]? { get set }
-    init(league : League)
+    var apiClient : ApiClient { get set }
+    init(league : League , apiClient : ApiClient)
+    init(apiClient : ApiClient)
     
     
     
 }
 
 class MatchesViewModel : MatchesListViewProtocol {
+    var apiClient: ApiClient
     var twoTeams: [[Team]?]?
     
     var getData: ((MatchesListViewProtocol) -> Void)?
@@ -28,8 +31,13 @@ class MatchesViewModel : MatchesListViewProtocol {
     
     var league: League?
     
-    required init(league : League) {
+    required init(league : League , apiClient : ApiClient = ApiClient()) {
         self.league = league
+        self.apiClient = apiClient
+
+    }
+    required init(apiClient: ApiClient = ApiClient()) {
+        self.apiClient = apiClient
     }
     
     var matches: Matches?{
@@ -41,7 +49,7 @@ class MatchesViewModel : MatchesListViewProtocol {
     
     func getDataFromApiServer(isLoadingCompletion: @escaping (Bool) -> Void) {
         isLoadingCompletion(false)
-        ApiClient.instance.getData(endPoint: "eventspastleague.php?id=\((league?.id)!)", of: Matches.self, completion: { [weak self] result in
+        apiClient.getData(endPoint: "eventspastleague.php?id=\((league?.id)!)", of: Matches.self, completion: { [weak self] result in
             switch(result){
             case(.failure(let error)):
                 print("\(error)")

@@ -8,6 +8,7 @@ pod 'Alamofire'
 pod 'JGProgressHUD'
 pod 'SDWebImage'
 pod 'FBSDKLoginKit'
+pod 'ReachabilitySwift'
 
 
   # Pods for Sportive

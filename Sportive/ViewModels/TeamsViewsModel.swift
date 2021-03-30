@@ -14,27 +14,37 @@ protocol TeamsListViewProtocol {
     var team : Team?{get set}
 
     var league : League?{ get set}
-    init(league : League)
-    init(team : Team)
+    var apiClient : ApiClient { get set }
+    init(league : League , apiClient : ApiClient)
+    init(team : Team , apiClient : ApiClient)
+    init(apiClient : ApiClient)
 
 }
 
 class TeamsViewsModel : TeamsListViewProtocol {
+   
     var team: Team?
-    required init(team: Team) {
+    var apiClient: ApiClient
+    required init(team: Team , apiClient: ApiClient = ApiClient()) {
         self.team = team
+        self.apiClient = apiClient
+        
     }
     var league: League?
     
-    required init(league: League) {
+    required init(league: League , apiClient: ApiClient = ApiClient()) {
         self.league = league
-
+        self.apiClient = apiClient
     }
+    required init(apiClient: ApiClient = ApiClient()) {
+        self.apiClient = apiClient
+    }
+    
     
     
     func getDataFromApiServer(isLoadingCompletion: @escaping (Bool) -> Void) {
         isLoadingCompletion(false)
-        ApiClient.instance.getData(endPoint: "lookup_all_teams.php?id=\((league?.id)!)", of: Teams.self, completion: {[weak self] result in
+        apiClient.getData(endPoint: "lookup_all_teams.php?id=\((league?.id)!)", of: Teams.self, completion: {[weak self] result in
             switch(result){
             case(.failure(let error)):
                 print("\(error)")

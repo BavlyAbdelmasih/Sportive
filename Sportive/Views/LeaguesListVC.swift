@@ -69,7 +69,7 @@ extension LeaguesListVC : UICollectionViewDelegate , UICollectionViewDataSource 
         if let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamsInLeagueCell.self), for: indexPath) as? TeamsInLeagueCell , let item = items?.all[indexPath.row] {
             
             cell.leagueBadgeImage.sd_setImage(with: URL(string: item.badge ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
-            cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 3
+            cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 2
             cell.leagueBadgeImage.layer.borderWidth = 2
             cell.leagueBadgeImage.layer.borderColor = UIColor.lightGray.cgColor
             return cell

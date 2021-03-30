@@ -9,21 +9,37 @@ import UIKit
 import CoreData
 import FBSDKLoginKit
 
-class FavouriteLeaguesVC: UIViewController {
+class FavouriteLeaguesVC: UIViewController , ReachabilityObserverDelegate {
     @IBOutlet weak var tableView: UITableView!
     var context :NSManagedObjectContext?
     var viewModel : LeaguesViewsModel?
+    var isReachable = true
+    
+    
+    
+    
+    func reachabilityChanged(_ isReachable: Bool) {
+        self.isReachable = !isReachable
+        if isReachable{
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:#selector(didTapTheButton))
+        }
+    }
     
     var favLeaguesArray : [FavouriteLeague]?
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        try? addReachabilityObserver()
+
         context = (UIApplication.shared.delegate as? AppDelegate )?.persistentContainer.viewContext
         loadAllData()
         
-        
     }
-    @IBAction func logout(_ sender: Any) {
+    
+    
+    @objc func didTapTheButton(){
+        
         UserDefaults.standard.setValue(nil, forKey: "user_name")
         UserDefaults.standard.setValue(nil, forKey: "pictureUrl")
         
@@ -35,8 +51,8 @@ class FavouriteLeaguesVC: UIViewController {
         
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: false, completion: nil)
-        
     }
+ 
     
     override func viewWillAppear(_ animated: Bool) {
         loadAllData()
@@ -82,19 +98,28 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
         
-        guard let favItem = favLeaguesArray?[indexPath.row] else { return }
-        let leagueItem = League(id: favItem.id!, title: favItem.title!, country: favItem.country!, badge: favItem.badge!, leagueYoutube: favItem.leagueYoutube!)
-        
-        details.leagueItem = leagueItem
-        
-        let matchVM = MatchesViewModel(league: leagueItem)
-        let teamVM = TeamsViewsModel(league: leagueItem)
-        
-        details.matchViewModel = matchVM
-        details.teamsViewModel = teamVM
-        navigationController?.pushViewController( details, animated: true)
+        if(isReachable){
+            let details = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
+            
+            guard let favItem = favLeaguesArray?[indexPath.row] else { return }
+            let leagueItem = League(id: favItem.id!, title: favItem.title!, country: favItem.country!, badge: favItem.badge!, leagueYoutube: favItem.leagueYoutube!)
+            
+            details.leagueItem = leagueItem
+            
+            let matchVM = MatchesViewModel(league: leagueItem)
+            let teamVM = TeamsViewsModel(league: leagueItem)
+            
+            details.matchViewModel = matchVM
+            details.teamsViewModel = teamVM
+            navigationController?.pushViewController( details, animated: true)
+        }else{
+            let alert = UIAlertController(title: "Sorry", message: "There is no internet Connection", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Retry", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+
         
     }
     
