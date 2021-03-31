@@ -50,7 +50,6 @@ extension LatestMatchesVC : UICollectionViewDelegate , UICollectionViewDataSourc
             cell.matchDate.text = matches?.all?[indexPath.row].dateEvent
             
             cell.didSelectHomeTeam = {
-                print("a7a7a7a7")
                 let detailsVC = (self.storyboard?.instantiateViewController(identifier: String(describing: TeamDetailsVC.self)))as! TeamDetailsVC
                 
                 let vm = TeamsViewsModel(team: (self.twoTeams?[indexPath.row]?[0])!)
