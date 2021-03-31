@@ -37,16 +37,16 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="FiW-UD-8yz">
-                                                    <rect key="frame" x="100" y="25.333333333333332" width="124.33333333333331" height="39.333333333333343"/>
+                                                    <rect key="frame" x="100" y="25.333333333333332" width="260" height="39.333333333333343"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier League" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnR-TR-cNk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="124.33333333333333" height="20.333333333333332"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="260" height="20.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <color key="textColor" red="0.12870702149999999" green="0.1140981689" blue="0.19671243429999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soccer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRy-zy-LiT">
-                                                            <rect key="frame" x="0.0" y="22.333333333333332" width="122.33333333333333" height="16.999999999999996"/>
+                                                            <rect key="frame" x="0.0" y="22.333333333333332" width="258" height="16.999999999999996"/>
                                                             <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="17"/>
                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -75,6 +75,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="80C-Vw-dQg" secondAttribute="trailing" constant="8" id="6rd-yx-gKb"/>
                                                 <constraint firstAttribute="bottom" secondItem="pFk-8X-g9A" secondAttribute="bottom" constant="8" id="BcC-Bl-eKB"/>
+                                                <constraint firstItem="80C-Vw-dQg" firstAttribute="leading" secondItem="FiW-UD-8yz" secondAttribute="trailing" constant="16" id="CpX-VB-ig2"/>
                                                 <constraint firstItem="pFk-8X-g9A" firstAttribute="leading" secondItem="bBf-eT-WN0" secondAttribute="leading" constant="8" id="GKR-y6-0EA"/>
                                                 <constraint firstItem="pFk-8X-g9A" firstAttribute="top" secondItem="bBf-eT-WN0" secondAttribute="top" constant="8" id="M6W-Hf-LkU"/>
                                                 <constraint firstItem="FiW-UD-8yz" firstAttribute="centerY" secondItem="bBf-eT-WN0" secondAttribute="centerY" id="atH-Kj-xR3"/>
@@ -107,6 +108,7 @@
                     <navigationItem key="navigationItem" id="zCR-wL-tpQ"/>
                     <connections>
                         <outlet property="tableView" destination="9IH-NR-ivm" id="qZz-uH-LgA"/>
+                        <segue destination="bNl-vL-jys" kind="show" identifier="fromFavouriteToDetails" id="p10-4X-ggg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erC-HT-YSy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -190,7 +192,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWR-dT-T1b">
                                         <rect key="frame" x="0.0" y="-140" width="414" height="1039"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soccerBgTest" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-zH-af2">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-zH-af2">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="HhI-fY-Jqf"/>
@@ -1465,8 +1467,12 @@
             <point key="canvasLocation" x="2801" y="-20"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="p10-4X-ggg"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="102i" width="100" height="100"/>
+        <image name="2" width="2560" height="1600"/>
         <image name="arsenal" width="512" height="512"/>
         <image name="arsenalBg" width="1280" height="720"/>
         <image name="champion" width="25" height="25"/>

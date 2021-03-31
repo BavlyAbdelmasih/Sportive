@@ -11,45 +11,19 @@ import JGProgressHUD
 class SportsListVC: UIViewController ,ReachabilityObserverDelegate {
     
     
-    
-    deinit{
-        removeReachabilityObserver()
-    }
-    
-    func reachabilityChanged(_ isReachable: Bool) {
-        if !isReachable {
-            guard let unReachVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: UnReachbaleVC.self)) else{return}
-            let nav = UINavigationController(rootViewController: unReachVC)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: false, completion: nil)
-        }else{
-            viewModel.getApiData(isLoadingCompletion: { isFinished in
-                if(!isFinished){
-                    self.spinner.show(in: self.collectionView ,animated: true)
-                }else{
-                    self.spinner.dismiss(animated: true)
-                }
-            })
-            viewModel.getSports = {viewModel in
-                self.items = viewModel.sports
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
-    }
-    
-    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profilePic: UIImageView!
     
     private let viewModel = SportsViewsModel()
     private let spinner = JGProgressHUD(style: .light)
-    public var items : Sports?
-    
+    var items : Sports?
     var userName : String?
     var profilePicUrl : String?
+    
+    deinit{
+        removeReachabilityObserver()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,4 +108,29 @@ extension SportsListVC : UICollectionViewDelegate , UICollectionViewDataSource ,
         view.layer.borderColor = UIColor.systemGray.cgColor
         view.layer.masksToBounds = true
     }
+    
+    
+    func reachabilityChanged(_ isReachable: Bool) {
+        if !isReachable {
+            guard let unReachVC = self.storyboard?.instantiateViewController(withIdentifier: String(describing: UnReachbaleVC.self)) else{return}
+            let nav = UINavigationController(rootViewController: unReachVC)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: false, completion: nil)
+        }else{
+            viewModel.getApiData(isLoadingCompletion: { isFinished in
+                if(!isFinished){
+                    self.spinner.show(in: self.collectionView ,animated: true)
+                }else{
+                    self.spinner.dismiss(animated: true)
+                }
+            })
+            viewModel.getSports = {viewModel in
+                self.items = viewModel.sports
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
 }

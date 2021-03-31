@@ -18,47 +18,38 @@ class TeamDetailsVC: UIViewController {
     @IBOutlet weak var teamCountryLabel: UILabel!
     @IBOutlet weak var screenBackgroundImage: UIImageView!
     @IBOutlet weak var stadiumTitleLabel: UILabel!
-    
+    @IBOutlet weak var stadiumBackgroundImage: UIImageView!
+
     var facebookUrl : String?
     var youtubeUrl : String?
     var twitterUrl : String?
     var webUrl : String?
-
-    
-    
-    @IBOutlet weak var stadiumBackgroundImage: UIImageView!
     var viewMdel : TeamsViewsModel?
     let spinner = JGProgressHUD(style: .light)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         stadiumImage.layer.cornerRadius = 20
         stadiumImage.clipsToBounds = true
-        
-
         let item = self.viewMdel!.team
-            self.teamTitleLabel.text = item?.teamTitle
-            self.leagueTitleLabel.text = item?.leagueTitle
-            self.teamLogoImage.sd_setImage(with: URL(string: item!.teamLogoImage), placeholderImage: UIImage(named: "placeholder.png"))
-            self.teamDescriptionLabel.text = item?.teamDescription
-            self.screenBackgroundImage.sd_setImage(with: URL(string: item!.teamBackgroundImage ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
-            self.teamCountryLabel.text = item?.teamLocation
-            self.stadiumImage.sd_setImage(with: URL(string: item!.stadiumImage ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
-            self.stadiumTitleLabel.text = item?.stadiumTitle
-            
-            self.facebookUrl = item?.teamFacebook
-            self.twitterUrl = item?.teamTwitter
-            self.webUrl = item?.teamWebsite
-            self.youtubeUrl = item?.teamYoutube
-            
-            
+        self.teamTitleLabel.text = item?.teamTitle
+        self.leagueTitleLabel.text = item?.leagueTitle
+        self.teamLogoImage.sd_setImage(with: URL(string: item!.teamLogoImage), placeholderImage: UIImage(named: "placeholder.png"))
+        self.teamDescriptionLabel.text = item?.teamDescription
+        self.screenBackgroundImage.sd_setImage(with: URL(string: item!.teamBackgroundImage ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
+        self.teamCountryLabel.text = item?.teamLocation
+        self.stadiumImage.sd_setImage(with: URL(string: item!.stadiumImage ?? "placeholder.png"), placeholderImage: UIImage(named: "placeholder.png"))
+        self.stadiumTitleLabel.text = item?.stadiumTitle
         
+        self.facebookUrl = item?.teamFacebook
+        self.twitterUrl = item?.teamTwitter
+        self.webUrl = item?.teamWebsite
+        self.youtubeUrl = item?.teamYoutube
         
     }
     
     @IBAction func openFacebookPage(_ sender: Any) {
-   
+        
         if let url = URL(string: "https://\(facebookUrl!)") {
             UIApplication.shared.open(url)
         }
