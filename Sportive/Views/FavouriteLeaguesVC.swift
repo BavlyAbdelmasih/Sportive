@@ -14,6 +14,8 @@ class FavouriteLeaguesVC: UIViewController , ReachabilityObserverDelegate {
     var context :NSManagedObjectContext?
     var viewModel : LeaguesViewsModel?
     var isReachable = true
+    var matchVM : MatchesViewModel?
+    var teamVM :TeamsViewsModel?
     
     
     
@@ -107,12 +109,11 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
             
             details.leagueItem = leagueItem
             
-            let matchVM = MatchesViewModel(league: leagueItem)
-            let teamVM = TeamsViewsModel(league: leagueItem)
-            
-            details.matchViewModel = matchVM
-            details.teamsViewModel = teamVM
-            navigationController?.pushViewController( details, animated: true)
+             matchVM = MatchesViewModel(league: leagueItem)
+             teamVM = TeamsViewsModel(league: leagueItem)
+            performSegue(withIdentifier: "fromFavouriteToDetails", sender: self)
+
+        
         }else{
             let alert = UIAlertController(title: "Sorry", message: "There is no internet Connection", preferredStyle: .alert)
             
@@ -121,6 +122,12 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
         }
 
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailsVC = segue.destination as? LeagueDetailsVC
+        detailsVC?.matchViewModel = matchVM
+        detailsVC?.teamsViewModel = teamVM
     }
     
 }
