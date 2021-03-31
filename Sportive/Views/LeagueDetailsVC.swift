@@ -10,14 +10,14 @@ import CoreData
 import JGProgressHUD
 
 class LeagueDetailsVC: UIViewController {
-  
+    
     @IBOutlet weak var leagueBadgeImage: UIImageView!
     @IBOutlet weak var favouriteIcon: UIBarButtonItem!
     @IBOutlet weak var latestMatchesView: UIView!
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    private let spinner = JGProgressHUD(style: .light)
     
+    
+    private let spinner = JGProgressHUD(style: .light)
     var leagueItem : League?
     var isFavourite = false
     var context :NSManagedObjectContext?
@@ -28,7 +28,7 @@ class LeagueDetailsVC: UIViewController {
     var matchViewModel : MatchesViewModel!
     var teamsViewModel : TeamsViewsModel!
     var teamItems : Teams?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,7 @@ class LeagueDetailsVC: UIViewController {
         guard let UpcomingVC = self.children.last as? UpcomingMatchesVC else  {
             fatalError("Check storyboard for missing LocationTableViewController")
         }
-
+        
         
         matchViewModel?.getDataFromApiServer(isLoadingCompletion: {isFinishsed in
             
@@ -95,7 +95,7 @@ class LeagueDetailsVC: UIViewController {
             
             latestVC.matches = vm.matches
             UpcomingVC.matches = vm.matches
-
+            
         }
         
         
@@ -133,7 +133,7 @@ class LeagueDetailsVC: UIViewController {
         }else{
             favLeaguesArray = favLeaguesArray?.filter { $0.id != leagueItem?.id}
             context?.delete(searchedLeagues![0])
-
+            
             do{
                 try saveData()
                 
@@ -172,8 +172,6 @@ class LeagueDetailsVC: UIViewController {
             print("\(error)")
         }
     }
-    
-    
 }
 
 
@@ -201,13 +199,9 @@ extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsVC = (self.storyboard?.instantiateViewController(identifier: String(describing: TeamDetailsVC.self)))as! TeamDetailsVC
-        
         let vm = self.teamsViewModel.TeamsViewModelForTeam(team: (teamItems?.all?[indexPath.row])!)
         detailsVC.viewMdel = vm
         self.present(detailsVC, animated: true, completion: nil)
-        
-        
-        
     }
     
 }

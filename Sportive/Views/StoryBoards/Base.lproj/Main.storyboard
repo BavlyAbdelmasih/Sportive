@@ -192,7 +192,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWR-dT-T1b">
                                         <rect key="frame" x="0.0" y="-140" width="414" height="1039"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soccerBgTest" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-zH-af2">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-zH-af2">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="HhI-fY-Jqf"/>
@@ -1472,6 +1472,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="102i" width="100" height="100"/>
+        <image name="2" width="2560" height="1600"/>
         <image name="arsenal" width="512" height="512"/>
         <image name="arsenalBg" width="1280" height="720"/>
         <image name="champion" width="25" height="25"/>

@@ -18,25 +18,22 @@ class LeaguesListVC: UIViewController {
     @IBOutlet weak var sportTypeLbel: UILabel!
     @IBOutlet weak var sportDescribtionLabel: UILabel!
     
-      var viewModel : LeaguesViewsModel?
+    var viewModel : LeaguesViewsModel?
     var items : Leagues?
     var spinner = JGProgressHUD(style: .light)
     var matchVM:MatchesViewModel?
     var teamVM : TeamsViewsModel?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         sportTitleLabel.text = viewModel?.sport.title
-      
+        
         
         guard let imageBackground = viewModel?.sport.backgroundImageUrl else { return  }
         sportTypeLbel.text = viewModel?.sport.type
         sportsBackgrundImage.sd_setImage(with: URL(string: imageBackground), placeholderImage: UIImage(named: "placeholder.png"))
         sportDescribtionLabel.text = viewModel?.sport.description
-        
-        
-        
         
         //get League Data from Server
         viewModel?.getApiData(isLoadingCompletion: { isFinished in
@@ -54,17 +51,11 @@ class LeaguesListVC: UIViewController {
             }
         }
     }
-    
-    
-    
-    
 }
 
 extension LeaguesListVC : UICollectionViewDelegate , UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return items?.all.count ?? 0
-        
+         items?.all.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -109,9 +100,7 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
                 }
                 if let url = URL(string: "https://\(youtubeUrlStr)") {
                     UIApplication.shared.open(url)
-                }
-                print(item.leagueYoutube)
-                
+                }                
             }
             cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.width / 2
             cell.leagueImage.layer.borderWidth = 2

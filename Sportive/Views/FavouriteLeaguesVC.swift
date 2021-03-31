@@ -16,27 +16,15 @@ class FavouriteLeaguesVC: UIViewController , ReachabilityObserverDelegate {
     var isReachable = true
     var matchVM : MatchesViewModel?
     var teamVM :TeamsViewsModel?
-    
-    
-    
-    
-    func reachabilityChanged(_ isReachable: Bool) {
-        self.isReachable = isReachable
-        if isReachable{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:#selector(didTapTheButton))
-        }
-    }
-    
     var favLeaguesArray : [FavouriteLeague]?
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         try? addReachabilityObserver()
-
         context = (UIApplication.shared.delegate as? AppDelegate )?.persistentContainer.viewContext
         loadAllData()
-        
     }
     
     
@@ -48,13 +36,11 @@ class FavouriteLeaguesVC: UIViewController , ReachabilityObserverDelegate {
         let loginManager = LoginManager()
         loginManager.logOut()
         let logginScreen = LoginVC()
- 
         let nav = UINavigationController(rootViewController: logginScreen)
-        
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: false, completion: nil)
     }
- 
+    
     
     override func viewWillAppear(_ animated: Bool) {
         loadAllData()
@@ -109,25 +95,30 @@ extension FavouriteLeaguesVC : UITableViewDelegate , UITableViewDataSource {
             
             details.leagueItem = leagueItem
             
-             matchVM = MatchesViewModel(league: leagueItem)
-             teamVM = TeamsViewsModel(league: leagueItem)
+            matchVM = MatchesViewModel(league: leagueItem)
+            teamVM = TeamsViewsModel(league: leagueItem)
             performSegue(withIdentifier: "fromFavouriteToDetails", sender: self)
-
-        
+            
+            
         }else{
             let alert = UIAlertController(title: "Sorry", message: "There is no internet Connection", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Retry", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailsVC = segue.destination as? LeagueDetailsVC
         detailsVC?.matchViewModel = matchVM
         detailsVC?.teamsViewModel = teamVM
+    }
+    
+    func reachabilityChanged(_ isReachable: Bool) {
+        self.isReachable = isReachable
+        if isReachable{
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:#selector(didTapTheButton))
+        }
     }
     
 }

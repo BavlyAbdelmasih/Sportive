@@ -179,7 +179,6 @@ extension LoginVC : LoginButtonDelegate{
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         //nothing here
-        
     }
     
     
