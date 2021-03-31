@@ -19,7 +19,7 @@ class FavouriteLeaguesVC: UIViewController , ReachabilityObserverDelegate {
     
     
     func reachabilityChanged(_ isReachable: Bool) {
-        self.isReachable = !isReachable
+        self.isReachable = isReachable
         if isReachable{
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:#selector(didTapTheButton))
         }

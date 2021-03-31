@@ -188,10 +188,9 @@ extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSourc
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TeamsInLeagueCell.self), for: indexPath) as? TeamsInLeagueCell , let item = teamItems?.all?[indexPath.row] {
             
             cell.leagueBadgeImage.sd_setImage(with: URL(string: item.teamLogoImage), placeholderImage: UIImage(named: "placeholder.png"))
-            cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 3
+            cell.leagueBadgeImage.layer.cornerRadius = cell.leagueBadgeImage.frame.width / 2
             cell.leagueBadgeImage.layer.borderWidth = 2
             cell.leagueBadgeImage.layer.borderColor = UIColor.lightGray.cgColor
-            
             
             return cell
         }
@@ -205,7 +204,7 @@ extension LeagueDetailsVC : UICollectionViewDelegate , UICollectionViewDataSourc
         
         let vm = self.teamsViewModel.TeamsViewModelForTeam(team: (teamItems?.all?[indexPath.row])!)
         detailsVC.viewMdel = vm
-        self.navigationController?.pushViewController(detailsVC, animated: true)
+        self.present(detailsVC, animated: true, completion: nil)
         
         
         

@@ -78,4 +78,14 @@ class SportsListVCTests: XCTestCase {
         
     }
     
+    
+//    func testCollectionViewNumberOfRowsEqItemListCount()throws {
+//        let unWrapped = try XCTUnwrap(vc)
+//        guard let collectionView = unWrapped.collectionView else {
+//            return
+//        }
+//        let numOfItemsInSection = collectionView.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0)
+//        XCTAssertEqual(numOfItemsInSection, unWrapped.items?.all.count)
+//    }
+    
 }

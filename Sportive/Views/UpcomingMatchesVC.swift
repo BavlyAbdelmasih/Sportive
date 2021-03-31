@@ -63,7 +63,7 @@ extension UpcomingMatchesVC : UICollectionViewDelegate , UICollectionViewDataSou
             
             cell.didSelectAwayTeam = {
                 
-                let detailsVC = (self.storyboard?.instantiateViewController(identifier: "UpcomingMatchesCell"))as! TeamDetailsVC
+                let detailsVC = (self.storyboard?.instantiateViewController(identifier: "TeamDetailsVC"))as! TeamDetailsVC
                 
                 let vm = TeamsViewsModel(team: (self.twoTeams?[indexPath.row]?[1])!)
                 detailsVC.viewMdel = vm
@@ -78,9 +78,9 @@ extension UpcomingMatchesVC : UICollectionViewDelegate , UICollectionViewDataSou
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = (view.frame.size.width - 10 )
+        return CGSize(width: size, height: size )
     }
     
 }

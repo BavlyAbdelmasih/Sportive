@@ -46,7 +46,7 @@ class SportsListVC: UIViewController ,ReachabilityObserverDelegate {
     
     private let viewModel = SportsViewsModel()
     private let spinner = JGProgressHUD(style: .light)
-    private var items : Sports?
+    public var items : Sports?
     
     var userName : String?
     var profilePicUrl : String?

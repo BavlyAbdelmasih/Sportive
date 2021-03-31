@@ -21,6 +21,8 @@ class LeaguesListVC: UIViewController {
       var viewModel : LeaguesViewsModel?
     var items : Leagues?
     var spinner = JGProgressHUD(style: .light)
+    var matchVM:MatchesViewModel?
+    var teamVM : TeamsViewsModel?
 
     
     override func viewDidLoad() {
@@ -79,17 +81,9 @@ extension LeaguesListVC : UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailsVC = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
-                
-       let matchVM = self.viewModel!.MatchesViewModelForLeague(league: (items?.all[indexPath.row])!)
-        let teamVM = self.viewModel!.TeamsViewModelForLeague(league: (items?.all[indexPath.row])!)
-
-        detailsVC.matchViewModel = matchVM
-        detailsVC.teamsViewModel = teamVM
-        self.navigationController?.pushViewController(detailsVC, animated: true)
-        
-
-        
+        matchVM = self.viewModel!.MatchesViewModelForLeague(league: (items?.all[indexPath.row])!)
+        teamVM = self.viewModel!.TeamsViewModelForLeague(league: (items?.all[indexPath.row])!)
+        performSegue(withIdentifier: "fromLeagueListToDetails", sender: self)
     }
     
     
@@ -134,16 +128,16 @@ extension LeaguesListVC : UITableViewDelegate , UITableViewDataSource {
         return 100
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailsVC = (self.storyboard?.instantiateViewController(identifier: "LeagueDetailViewController"))as! LeagueDetailsVC
-                
-       let matchVM = self.viewModel!.MatchesViewModelForLeague(league: (items?.all[indexPath.row])!)
-        let teamVM = self.viewModel!.TeamsViewModelForLeague(league: (items?.all[indexPath.row])!)
-
-        detailsVC.matchViewModel = matchVM
-        detailsVC.teamsViewModel = teamVM
-        self.navigationController?.pushViewController(detailsVC, animated: true)
-        
-   
+        matchVM = self.viewModel!.MatchesViewModelForLeague(league: (items?.all[indexPath.row])!)
+        teamVM = self.viewModel!.TeamsViewModelForLeague(league: (items?.all[indexPath.row])!)
+        performSegue(withIdentifier: "fromLeagueListToDetails", sender: self)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailsVC = segue.destination as? LeagueDetailsVC
+        detailsVC?.matchViewModel = matchVM
+        detailsVC?.teamsViewModel = teamVM
     }
     
 }
