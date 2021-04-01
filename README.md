@@ -37,9 +37,8 @@ https://thesportsdb.com/api.php
 | --------------------------------------------- | --------------------------------------------- |
 | Create Application Design.                    |  Latest and Upcoming Matches for Leagues      |
 | Create Model Layer.                           | Handling Offline Mode Using **Reachability**. |
-| Create Network Layer Using **Alamofire**.     |                                               |
+| Create Network Layer Using **Alamofire**.     | Show Teams Details.                           |
 | Show All sports and Leagues.                  |
 | Show Legues Details.                          |
-| Show Teams Details.                           |
 | Favourite Leagues Feature using **CoreData**. |
 | FaceBook Login.                               |
